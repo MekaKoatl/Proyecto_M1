@@ -1,0 +1,150 @@
+.carousel-wrapper {
+  width: 100%;
+  max-width: 1080px;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: transform 0.5s ease;
+  will-change: transform;
+}
+
+.carousel-card {
+  flex: 0 0 180px;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  background-color: #f3f4f6;
+  border: 2px solid #e5e7eb;
+  opacity: 0.2;
+  transform: scale(0.8);
+  transition: opacity 0.5s ease, transform 0.5s ease, border 0.5s ease, background-color 0.5s ease;
+}
+
+.carousel-card.center {
+  opacity: 1;
+  transform: scale(1);
+  background-color: #ffffff;
+  border: 2px solid #ef4444;
+  /* box-shadow: 0 10px 15px rgba(0,0,0,0.2); */
+}
+
+@media (min-width: 640px) {
+  .carousel-card {
+    flex: 0 0 210px;
+    height: 210px;
+  }
+}
+
+.carousel-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.carousel-card.center img {
+  width: 120px;
+  height: 120px;
+}
+
+.carousel-card span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #374151;
+  margin-top: 0.5rem;
+}
+
+/* @media (min-width: 640px) {
+  .carousel-card {
+    flex: 0 0 160px;
+    height: 160px;
+  }
+  .carousel-card.center {
+    flex: 0 0 210px;
+    height: 210px;
+  }
+  .carousel-card img {
+    width: 100px;
+    height: 100px;
+  }
+  .carousel-card.center img {
+    width: 130px;
+    height: 130px;
+  }
+} */
+
+/* DXG - General Gallery */
+.dex-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9fafb;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1rem 0.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dex-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.dex-card img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+
+.dex-card-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #111827;
+  margin-top: 0.4rem;
+}
+
+.dex-card-types {
+  display: flex;
+  gap: 0.3rem;
+  margin-top: 0.4rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.type-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  color: rgb(255, 255, 255);
+  text-transform: capitalize;
+}
+
+/* Tipos de Pokemon */
+.type-fire { background-color: #F08030; }
+.type-water { background-color: #6890F0; }
+.type-grass { background-color: #78C850; }
+.type-electric { background-color: #F8D030; color: #111827; }
+.type-ice { background-color: #98D8D8;}
+.type-fighting { background-color: #C03028; }
+.type-poison { background-color: #A040A0; }
+.type-ground { background-color: #E0C068; }
+.type-flying { background-color: #A890F0; }
+.type-psychic { background-color: #F85888; }
+.type-bug { background-color: #A8B820; }
+.type-rock { background-color: #B8A038; }
+.type-ghost { background-color: #705898; }
+.type-dragon { background-color: #7038F8; }
+.type-dark { background-color: #705848; }
+.type-steel { background-color: #B8B8D0; color: #111827; }
+.type-fairy { background-color: #EE99AC;}
+.type-normal { background-color: #A8A878; }

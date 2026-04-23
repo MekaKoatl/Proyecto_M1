@@ -102,147 +102,101 @@ function parseEvolutionChain(chain) {
 }
 ///////////////////////////////////////////////////////////////////////////
 
-//////VOY A USAR ESTO EN EL FUTURO
+///////////////////////////////////////////////////////////////////////////
+// Carousel
 const TOTAL_POKEMON = 1025;
 const VISIBLE_COUNT = 5;
 const CENTER_INDEX = Math.floor(VISIBLE_COUNT / 2);
-const POOL_SIZE = 15;
+
+let carouselPool = [];
+let isSliding = false;
+
 function getRandomPokemonId() {
   return Math.floor(Math.random() * TOTAL_POKEMON) + 1;
 }
 
-///////////////////////////////////////////////////////////////////////////
-// Carousel
-let carouselPool = [];
-let poolIndex = 0;
-let isSliding = false;
-
-
-async function fetchPokemonById(id) {
+async function fetchCarouselPokemon(id) {
   const res = await fetch(`${BASE_URL}/pokemon/${id}`);
   if (!res.ok) return null;
   return res.json();
 }
 
-/////// RENDERIZADOR DE CARDS
-function buildCard(pokemon, isCenter = false) {
-  // card.dataset.id = pokemon.id;
+function buildCard(pokemon, isCenter) {
+  const sprite = pokemon.sprites.front_default;
+  const name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+
   const card = document.createElement("div");
   card.className = `carousel-card${isCenter ? " center" : ""}`;
   card.innerHTML = `
-    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" />
-    <span>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</span>
+    <img src="${sprite}" alt="${name}" class="object-contain w-20 h-20 sm:w-28 sm:h-28" />
+    <span class="text-gray-700 text-xs sm:text-sm font-semibold mt-2">${name}</span>
   `;
   return card;
 }
 
-function getCardWidth() {
+function refreshCenterStyling() {
   const track = document.getElementById("carousel-track");
-  const card = track.querySelector(".carousel-card");
-  const gap = window.innerWidth >= 640 ? 16 : 12;
-  return card ? card.offsetWidth + gap : 0;
+  Array.from(track.children).forEach((card, i) => {
+    card.classList.toggle("center", i === CENTER_INDEX);
+  });
 }
 
 async function initCarousel() {
-  const ids = Array.from({ length: POOL_SIZE }, getRandomPokemonId);
-  const results = await Promise.all(ids.map(fetchPokemonById));
-  carouselPool = results.filter(Boolean);
+  const allIds = Array.from({ length: 15 }, getRandomPokemonId);
+  const allPokemons = await Promise.all(allIds.map(fetchCarouselPokemon));
+
+  carouselPool = allPokemons.filter(Boolean);
 
   const track = document.getElementById("carousel-track");
   track.innerHTML = "";
-
-  //
-  for (let i = 0; i < VISIBLE_COUNT; i++) {
-    track.appendChild(buildCard(carouselPool[i], i === CENTER_INDEX));
-  }
-
-  poolIndex = VISIBLE_COUNT;
+  carouselPool.slice(0, VISIBLE_COUNT).forEach((pokemon, i) => {
+    track.appendChild(buildCard(pokemon, i === CENTER_INDEX));
+  });
 }
-///////////////////////// ENTIENDO QUE BUILDCARD GENERA LA CARTA, GETCARDWIDTH GENERA SUS DIMENSIONES Y ES PARTE DE MI PROBLEMA CON EL CAROUSEL Y INICAROUSEL LO AGREGA/CONFIRMA
 
-////// PARTE DEL ANIMADOR
 async function slideNext() {
   if (isSliding) return;
   isSliding = true;
 
-  //// CONECTA CON LAS CLASES ANTERIORES
-  const track = document.getElementById("carousel-track");
-  const centerCard = track.children[CENTER_INDEX];
+  const track = document.getElementById('carousel-track');
+  const firstCard = track.children[0];
+  const cardWidth = firstCard.offsetWidth;
+  const gap = window.innerWidth >= 640 ? 24 : 16;
+  const slideDistance = cardWidth + gap;
 
-  // 
-  centerCard.classList.remove("center");
-      //TENGO QUE PREGUNTAR ESTO
-  await new Promise((r) => setTimeout(r, 500));
-
-  // CONECTOR DE CARTAS
-  const nextPokemon = carouselPool[poolIndex % carouselPool.length];
-  poolIndex++;
+  carouselPool.currentIndex = ((carouselPool.currentIndex ?? VISIBLE_COUNT) + 1) % carouselPool.length;
+  const nextPokemon = carouselPool[carouselPool.currentIndex];
+  if (!nextPokemon) { isSliding = false; return; }
 
   const newCard = buildCard(nextPokemon, false);
+  newCard.style.opacity = '0';
+  newCard.style.position = 'absolute';
   track.appendChild(newCard);
+  newCard.style.position = '';
+  newCard.style.opacity = '1';
 
-  // TRANSFORMADOR, CREO QUE ES NECESARIO CHECAR ESTO CON EL CSS
-  const slideDistance = getCardWidth();
-  track.style.transition = "transform 0.5s ease";
-  track.style.transform = `translateX(-${slideDistance}px)`;
+  track.style.transition = 'none';
+  track.style.transform = `translateX(0)`;
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      track.style.transition = 'transform 0.5s ease';
+      track.style.transform = `translateX(-${slideDistance}px)`;
+    });
+  });
 
   setTimeout(() => {
-    track.style.transition = "none";
-    track.style.transform = "translateX(0)";
+    track.style.transition = 'none';
+    track.style.transform = 'translateX(0)';
     track.children[0].remove();
-
-    Array.from(track.children).forEach((card, i) => {
-      card.classList.toggle("center", i === CENTER_INDEX);
-    });
-
+    refreshCenterStyling();
     isSliding = false;
-  }, 500);
+  }, 510);
 }
 
 // Auto-play
-setInterval(slideNext, 6000);
+setInterval(slideNext, 5000);
 
 // Init
 initCarousel();
-///////////////////////////////////////////////////////////////////////////
-
-// DXG
-///////////////////////////////////////////////////////////////////////////
-// DXG - General Gallery
-const ROWS_PER_LOAD = 10;
-const COLS = 5;
-let dexOffset = 1;
-
-function buildDexCard(pokemon) {
-  const types = pokemon.types.map(t => t.type.name);
-  const card = document.createElement('div');
-  card.className = 'dex-card';
-  card.dataset.id = pokemon.id;
-  card.innerHTML = `
-    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" />
-    <span class="dex-card-name">${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</span>
-    <hr>
-    <div class="dex-card-types">
-      ${types.map(t => `<span class="type-badge type-${t}">${t}</span>`).join('')}
-    </div>
-  `;
-  return card;
-}
-
-async function loadDexRows() {
-  const grid = document.getElementById('dex-grid');
-  if (!grid) return;
-
-  const ids = Array.from({ length: ROWS_PER_LOAD * COLS }, (_, i) => dexOffset + i);
-  dexOffset += ROWS_PER_LOAD * COLS;
-
-  const pokemons = await Promise.all(ids.map(fetchPokemonById));
-  pokemons.filter(Boolean).forEach(p => grid.appendChild(buildDexCard(p)));
-}
-
-const loadMoreBtn = document.getElementById('load-more-btn');
-if (loadMoreBtn) {
-  loadMoreBtn.addEventListener('click', loadDexRows);
-  loadDexRows();
-}
 ///////////////////////////////////////////////////////////////////////////

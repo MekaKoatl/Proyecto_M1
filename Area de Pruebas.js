@@ -103,95 +103,85 @@ function parseEvolutionChain(chain) {
 ///////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////
-// Generar Carousel
 // Carousel
 const TOTAL_POKEMON = 1025;
-const VISIBLE_COUNT = 4;
-const CENTER_INDEX = 2;
+const VISIBLE_COUNT = 5;
+const CENTER_INDEX = Math.floor(VISIBLE_COUNT / 2);
+const POOL_SIZE = 15;
 
-let carouselIds = [];
+let carouselPool = [];
+let poolIndex = 0;
 let isSliding = false;
 
-// Generar un ID RANDOM DE POKEMON, ESTO PUEDE FUNCIONAR FUERA DE CAROUSEK
+//////VOY A USAR ESTO EN EL FUTURO
 function getRandomPokemonId() {
   return Math.floor(Math.random() * TOTAL_POKEMON) + 1;
 }
 
-//GUARDO EL ID GENERADO PARA NO CONFUNDIRME
-function generateCarouselIds(count) {
-  return Array.from({ length: count }, getRandomPokemonId);
-}
-
-//LLAMO A LA API PARA INFO DEL CAROUSEL
-async function fetchCarouselPokemon(id) {
+async function fetchPokemonById(id) {
   const res = await fetch(`${BASE_URL}/pokemon/${id}`);
   if (!res.ok) return null;
   return res.json();
 }
 
-// Customizador de Cartas de Carousel
-function buildCard(pokemon, isCenter) {
-  //Este es el sprite
-  const sprite = pokemon.sprites.front_default;
-  //Este es el nombre
-  const name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
-
-  //Esto define tamaño
-  const sizeClass = isCenter
-    ? "w-50 h-50 sm:w-48 sm:h-48 bg-gray-200 shadow-xl scale-110"
-    : "w-28 h-28 sm:w-50 sm:h-50 bg-gray-100 opacity-60";
-
-  //Esta siguiente parte genera el card y lo "renderiza"
+/////// RENDERIZADOR DE CARDS
+function buildCard(pokemon, isCenter = false) {
   const card = document.createElement("div");
-  card.className = `flex-shrink-0 flex flex-col items-center justify-center rounded-xl transition-all duration-500 ${sizeClass}`;
+  card.className = `carousel-card${isCenter ? " center" : ""}`;
   card.innerHTML = `
-    <img src="${sprite}" alt="${name}" class="w-16 h-16 sm:w-24 sm:h-24 object-contain" />
-    <span class="text-gray-700 text-xs sm:text-sm font-semibold mt-1">${name}</span>
+    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" />
+    <span>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</span>
   `;
   return card;
 }
 
-/////////////
-// Funcion para animar (trying, ejemplpo de linea)
-async function populateTrack(ids) {
-  const pokemons = await Promise.all(ids.map(fetchCarouselPokemon));
+function getCardWidth() {
   const track = document.getElementById("carousel-track");
-  track.innerHTML = "";
-  pokemons.forEach((pokemon, i) => {
-    if (!pokemon) return;
-    track.appendChild(buildCard(pokemon, i === CENTER_INDEX));
-  });
+  const card = track.querySelector(".carousel-card");
+  const gap = window.innerWidth >= 640 ? 16 : 12;
+  return card ? card.offsetWidth + gap : 0;
 }
 
 async function initCarousel() {
-  carouselIds = generateCarouselIds(VISIBLE_COUNT + 1);
-  await populateTrack(carouselIds);
-}
+  const ids = Array.from({ length: POOL_SIZE }, getRandomPokemonId);
+  const results = await Promise.all(ids.map(fetchPokemonById));
+  carouselPool = results.filter(Boolean);
 
+  const track = document.getElementById("carousel-track");
+  track.innerHTML = "";
+
+  //
+  for (let i = 0; i < VISIBLE_COUNT; i++) {
+    track.appendChild(buildCard(carouselPool[i], i === CENTER_INDEX));
+  }
+
+  poolIndex = VISIBLE_COUNT;
+}
+///////////////////////// ENTIENDO QUE BUILDCARD GENERA LA CARTA, GETCARDWIDTH GENERA SUS DIMENSIONES Y ES PARTE DE MI PROBLEMA CON EL CAROUSEL Y INICAROUSEL LO AGREGA/CONFIRMA
+
+////// PARTE DEL ANIMADOR
 async function slideNext() {
   if (isSliding) return;
   isSliding = true;
 
-  const newId = getRandomPokemonId();
-  const newPokemon = await fetchCarouselPokemon(newId);
-  if (!newPokemon) {
-    isSliding = false;
-    return;
-  }
-
+  //// CONECTA CON LAS CLASES ANTERIORES
   const track = document.getElementById("carousel-track");
+  const centerCard = track.children[CENTER_INDEX];
 
-  // Crear card para nuevos Pokemon, creo que esto es infinito y tengo que modificarlo
-  const newCard = buildCard(newPokemon, false);
-  newCard.classList.add("opacity-0");
+  // 
+  centerCard.classList.remove("center");
+      //TENGO QUE PREGUNTAR ESTO
+  await new Promise((r) => setTimeout(r, 500));
+
+  // CONECTOR DE CARTAS
+  const nextPokemon = carouselPool[poolIndex % carouselPool.length];
+  poolIndex++;
+
+  const newCard = buildCard(nextPokemon, false);
   track.appendChild(newCard);
 
-  // Ingresa la carta en el carousel
-  const cardWidth = track.children[0].offsetWidth;
-  const gap = 24;
-  const slideDistance = cardWidth + gap;
-
-  // IZQ
+  // TRANSFORMADOR, CREO QUE ES NECESARIO CHECAR ESTO CON EL CSS
+  const slideDistance = getCardWidth();
   track.style.transition = "transform 0.5s ease";
   track.style.transform = `translateX(-${slideDistance}px)`;
 
@@ -199,63 +189,17 @@ async function slideNext() {
     track.style.transition = "none";
     track.style.transform = "translateX(0)";
     track.children[0].remove();
-    newCard.classList.remove("opacity-0");
 
-    // Animación de pokemon central
     Array.from(track.children).forEach((card, i) => {
-      const isCenter = i === CENTER_INDEX;
-      card.className = card.className
-        .replace(
-          /w-50|w-28|h-50|h-28|sm:w-48|sm:h-48|sm:w-50|sm:h-50|bg-gray-200|bg-gray-100|shadow-xl|scale-110|opacity-60/g,
-          "",
-        )
-        .trim();
-      card.classList.add(
-        ...(isCenter
-          ? [
-              "w-50",
-              "h-50",
-              "sm:w-48",
-              "sm:h-48",
-              "bg-gray-200",
-              "shadow-xl",
-              "scale-110",
-            ]
-          : [
-              "w-28",
-              "h-28",
-              "sm:w-50",
-              "sm:h-50",
-              "bg-gray-100",
-              "opacity-60",
-            ]),
-      );
+      card.classList.toggle("center", i === CENTER_INDEX);
     });
 
     isSliding = false;
   }, 500);
-
-  carouselIds.shift();
-  carouselIds.push(newId);
 }
 
-// Touch
-// let dragStartX = 0;
-// const track = document.getElementById('carousel-track');
-
-// track.addEventListener('mousedown', e => { dragStartX = e.clientX; });
-// track.addEventListener('mouseup', e => {
-//   const diff = dragStartX - e.clientX;
-//   if (Math.abs(diff) > 40) shiftCarousel(diff > 0 ? 'next' : 'prev');
-// });
-// track.addEventListener('touchstart', e => { dragStartX = e.touches[0].clientX; });
-// track.addEventListener('touchend', e => {
-//   const diff = dragStartX - e.changedTouches[0].clientX;
-//   if (Math.abs(diff) > 40) shiftCarousel(diff > 0 ? 'next' : 'prev');
-// });
-
 // Auto-play
-setInterval(slideNext, 5000);
+setInterval(slideNext, 6000);
 
 // Init
 initCarousel();
