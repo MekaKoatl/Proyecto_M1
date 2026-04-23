@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokédex</title>
+    <!-- Style Sheet Propia y Conexión con Tailwind -->
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fin Stylesheets -->
+  </head>
+  <!-- Color de fondo -->
+  <body class="bg-white-900 text-white min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-red-600 shadow-lg">
+      <div
+        class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between"
+      >
+        <!-- Logo -->
+        <div class="flex items-center gap-3">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/1280px-Pok%C3%A9_Ball_icon.svg.png"
+            alt="Pokeball"
+            class="w-8 h-8"
+          />
+          <h1 class="text-lg sm:text-2xl font-bold tracking-wide">
+            CRAF Pokédex - Project
+          </h1>
+        </div>
+
+        <!-- Nav Links -->
+        <ul
+          class="flex items-center gap-1 sm:gap-4 text-sm sm:text-base font-semibold"
+        >
+          <li>
+            <a
+              href="index.html"
+              class="px-3 py-1 rounded hover:bg-red-700 transition"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a href="#" class="px-3 py-1 rounded hover:bg-red-700 transition"
+              >General Dex Gallery</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- Fin Navbar -->
+
+    <!-- Carousel Section -->
+<section class="max-w-7x1 mx-auto px-4 py-8 overflow-hidden">
+  <div id="carousel-track" class="flex items-center gap-3 sm:gap-6 transition-transform duration-500 ease-in-out will-change-transform">
+    <!-- Nunca habia hecho un carousel con JS así que estoy improvisando bastante -->
+  </div>
+</section>
+
+<!-- Search Section -->ç
+ <section>
+<aside class="flex" aria-label="Product filters and results">
+   <div
+      class="w-full max-w-[280px] shrink-0 border-r border-slate-300 px-4 md:px-6 min-h-screen py-6"
+      role="region" aria-labelledby="filter-heading">
+
+      <div class="flex items-center border-b border-slate-300 pb-2 mb-6">
+         <h2 id="filter-heading" class="text-slate-900 text-lg font-semibold">Pokemon Filter</h2>
+         <button type="button"
+            class="text-sm text-red-500 font-semibold ml-auto cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded"
+            aria-label="Clear all filters">Clear all</button>
+      </div>
+
+      <!-- Brand -->
+      <fieldset>
+         <legend class="text-slate-900 text-sm font-semibold">Brand</legend>
+
+         <form class="mt-2" role="search" aria-label="Search brand">
+            <div
+               class="flex items-center gap-2.5 px-3 py-2 rounded-md bg-white outline-1 -outline-offset-1 outline-slate-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-blue-600">
+               <label for="brand-search" class="sr-only">Search brand</label>
+               <input type="search" id="brand-search" name="brand-search" placeholder="Search brand"
+                  class="text-sm text-slate-900 w-full outline-none" />
+
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.904 192.904" class="size-4 fill-slate-400 ml-auto" aria-hidden="true">
+                     <path
+                        d="m190.707 180.101-47.078-47.077c11.702-14.072 18.752-32.142 18.752-51.831C162.381 36.423 125.959 0 81.191 0 36.422 0 0 36.423 0 81.193c0 44.767 36.422 81.187 81.191 81.187 19.688 0 37.759-7.049 51.831-18.751l47.079 47.078a7.474 7.474 0 0 0 5.303 2.197 7.498 7.498 0 0 0 5.303-12.803zM15 81.193C15 44.694 44.693 15 81.191 15c36.497 0 66.189 29.694 66.189 66.193 0 36.496-29.692 66.187-66.189 66.187C44.693 147.38 15 117.689 15 81.193z">
+                     </path>
+                  </svg>
+            </div>
+         </form>
+
+         <ul class="mt-6 space-y-4" aria-label="Brand options">
+            <li>
+               <label for="brand-zara" class="inline-flex items-center gap-2.5 group">
+                  <input type="checkbox" class="sr-only" id="brand-zara" name="brand" value="Zara" />
+                  <span
+                     class="flex h-4 w-4 shrink-0 items-center justify-center rounded outline-1 outline-slate-300 bg-white group-has-[input:checked]:bg-blue-600 group-has-[input:checked]:outline-blue-600 group-focus-within:outline-2 group-focus-within:outline-blue-600"
+                     aria-hidden="true">
+                     <!-- Checkmark -->
+                     <svg class="size-3 text-white opacity-0 group-has-[input:checked]:opacity-100" viewBox="0 0 12 10"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 5l3 3 7-7" />
+                     </svg>
+                  </span>
+                  <span class="text-sm text-slate-900">Zara</span>
+               </label>
+            </li>
+
+            <li>
+               <label for="brand-hm" class="inline-flex items-center gap-2.5 group">
+                  <input type="checkbox" class="sr-only" id="brand-hm" name="brand" value="H&M" />
+                  <span
+                     class="flex h-4 w-4 shrink-0 items-center justify-center rounded outline-1 outline-slate-300 bg-white group-has-[input:checked]:bg-blue-600 group-has-[input:checked]:outline-blue-600 group-focus-within:outline-2 group-focus-within:outline-blue-600"
+                     aria-hidden="true">
+                     <!-- Checkmark -->
+                     <svg class="size-3 text-white opacity-0 group-has-[input:checked]:opacity-100" viewBox="0 0 12 10"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 5l3 3 7-7" />
+                     </svg>
+                  </span>
+                  <span class="text-sm text-slate-900">H&amp;M</span>
+               </label>
+            </li>
+
+            <li>
+               <label for="brand-uniqlo" class="inline-flex items-center gap-2.5 group">
+                  <input type="checkbox" class="sr-only" id="brand-uniqlo" name="brand" value="Uniqlo" />
+                  <span
+                     class="flex h-4 w-4 shrink-0 items-center justify-center rounded outline-1 outline-slate-300 bg-white group-has-[input:checked]:bg-blue-600 group-has-[input:checked]:outline-blue-600 group-focus-within:outline-2 group-focus-within:outline-blue-600"
+                     aria-hidden="true">
+                     <!-- Checkmark -->
+                     <svg class="size-3 text-white opacity-0 group-has-[input:checked]:opacity-100" viewBox="0 0 12 10"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 5l3 3 7-7" />
+                     </svg>
+                  </span>
+                  <span class="text-sm text-slate-900">Uniqlo</span>
+               </label>
+            </li>
+
+            <li>
+               <label for="brand-levis" class="inline-flex items-center gap-2.5 group">
+                  <input type="checkbox" class="sr-only" id="brand-levis" name="brand" value="Levi’s" />
+                  <span
+                     class="flex h-4 w-4 shrink-0 items-center justify-center rounded outline-1 outline-slate-300 bg-white group-has-[input:checked]:bg-blue-600 group-has-[input:checked]:outline-blue-600 group-focus-within:outline-2 group-focus-within:outline-blue-600"
+                     aria-hidden="true">
+                     <!-- Checkmark -->
+                     <svg class="size-3 text-white opacity-0 group-has-[input:checked]:opacity-100" viewBox="0 0 12 10"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 5l3 3 7-7" />
+                     </svg>
+                  </span>
+                  <span class="text-sm text-slate-900">Levi’s</span>
+               </label>
+            </li>
+
+            <li>
+               <label for="brand-nike" class="inline-flex items-center gap-2.5 group">
+                  <input type="checkbox" class="sr-only" id="brand-nike" name="brand" value="Nike" />
+                  <span
+                     class="flex h-4 w-4 shrink-0 items-center justify-center rounded outline-1 outline-slate-300 bg-white group-has-[input:checked]:bg-blue-600 group-has-[input:checked]:outline-blue-600 group-focus-within:outline-2 group-focus-within:outline-blue-600"
+                     aria-hidden="true">
+                     <!-- Checkmark -->
+                     <svg class="size-3 text-white opacity-0 group-has-[input:checked]:opacity-100" viewBox="0 0 12 10"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 5l3 3 7-7" />
+                     </svg>
+                  </span>
+                  <span class="text-sm text-slate-900">Nike</span>
+               </label>
+            </li>
+
+            <li>
+               <label for="brand-adidas" class="inline-flex items-center gap-2.5 group">
+                  <input type="checkbox" class="sr-only" id="brand-adidas" name="brand" value="Adidas" />
+                  <span
+                     class="flex h-4 w-4 shrink-0 items-center justify-center rounded outline-1 outline-slate-300 bg-white group-has-[input:checked]:bg-blue-600 group-has-[input:checked]:outline-blue-600 group-focus-within:outline-2 group-focus-within:outline-blue-600"
+                     aria-hidden="true">
+                     <!-- Checkmark -->
+                     <svg class="size-3 text-white opacity-0 group-has-[input:checked]:opacity-100" viewBox="0 0 12 10"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 5l3 3 7-7" />
+                     </svg>
+                  </span>
+                  <span class="text-sm text-slate-900">Adidas</span>
+               </label>
+            </li>
+
+            <li>
+               <label for="brand-puma" class="inline-flex items-center gap-2.5 group">
+                  <input type="checkbox" class="sr-only" id="brand-puma" name="brand" value="Puma" />
+                  <span
+                     class="flex h-4 w-4 shrink-0 items-center justify-center rounded outline-1 outline-slate-300 bg-white group-has-[input:checked]:bg-blue-600 group-has-[input:checked]:outline-blue-600 group-focus-within:outline-2 group-focus-within:outline-blue-600"
+                     aria-hidden="true">
+                     <!-- Checkmark -->
+                     <svg class="size-3 text-white opacity-0 group-has-[input:checked]:opacity-100" viewBox="0 0 12 10"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 5l3 3 7-7" />
+                     </svg>
+                  </span>
+                  <span class="text-sm text-slate-900">Puma</span>
+               </label>
+            </li>
+
+            <li>
+               <label for="brand-tommy" class="inline-flex items-center gap-2.5 group">
+                  <input type="checkbox" class="sr-only" id="brand-tommy" name="brand" value="Tommy Hilfiger" />
+                  <span
+                     class="flex h-4 w-4 shrink-0 items-center justify-center rounded outline-1 outline-slate-300 bg-white group-has-[input:checked]:bg-blue-600 group-has-[input:checked]:outline-blue-600 group-focus-within:outline-2 group-focus-within:outline-blue-600"
+                     aria-hidden="true">
+                     <!-- Checkmark -->
+                     <svg class="size-3 text-white opacity-0 group-has-[input:checked]:opacity-100" viewBox="0 0 12 10"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 5l3 3 7-7" />
+                     </svg>
+                  </span>
+                  <span class="text-sm text-slate-900">Tommy Hilfiger</span>
+               </label>
+            </li>
+         </ul>
+      </fieldset>
+
+      <hr class="my-6 border-slate-300" />
+
+      <!-- Size -->
+      <fieldset>
+         <legend class="text-slate-900 text-sm font-semibold">Size</legend>
+         <div class="flex flex-wrap gap-3 mt-4">
+            <button type="button" aria-pressed="false"
+               class="cursor-pointer border border-slate-300 hover:border-blue-600 rounded-md text-[13px] text-slate-900 font-medium py-1 px-1 min-w-14 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">XS</button>
+            <button type="button" aria-pressed="false"
+               class="cursor-pointer border border-slate-300 hover:border-blue-600 rounded-md text-[13px] text-slate-900 font-medium py-1 px-1 min-w-14 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">S</button>
+            <button type="button" aria-pressed="false"
+               class="cursor-pointer border border-slate-300 hover:border-blue-600 rounded-md text-[13px] text-slate-900 font-medium py-1 px-1 min-w-14 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">M</button>
+            <button type="button" aria-pressed="false"
+               class="cursor-pointer border border-slate-300 hover:border-blue-600 rounded-md text-[13px] text-slate-900 font-medium py-1 px-1 min-w-14 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">L</button>
+            <button type="button" aria-pressed="false"
+               class="cursor-pointer border border-slate-300 hover:border-blue-600 rounded-md text-[13px] text-slate-900 font-medium py-1 px-1 min-w-14 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">XL</button>
+            <button type="button" aria-pressed="false"
+               class="cursor-pointer border border-slate-300 hover:border-blue-600 rounded-md text-[13px] text-slate-900 font-medium py-1 px-1 min-w-14 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">XXL</button>
+            <button type="button" aria-pressed="false"
+               class="cursor-pointer border border-slate-300 hover:border-blue-600 rounded-md text-[13px] text-slate-900 font-medium py-1 px-1 min-w-14 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">XXXL</button>
+            <button type="button" aria-pressed="false"
+               class="cursor-pointer border border-slate-300 hover:border-blue-600 rounded-md text-[13px] text-slate-900 font-medium py-1 px-1 min-w-14 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">4XL</button>
+         </div>
+      </fieldset>
+
+      <hr class="my-6 border-slate-300" />
+
+      <!-- Price -->
+      <fieldset>
+         <legend id="price-heading" class="text-slate-900 text-sm font-semibold">
+            Price
+         </legend>
+
+         <div class="relative mt-6">
+            <div class="h-1.5 bg-gray-300 relative">
+               <div id="activeTrack" class="absolute h-1.5 bg-blue-600 rounded-full w-9/12"></div>
+            </div>
+
+            <label for="minRange" class="sr-only">Minimum price</label>
+            <input type="range" id="minRange" min="0" max="1000" value="0" aria-describedby="price-range-values"
+               class="absolute top-0 w-full h-1.5 bg-transparent appearance-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded" />
+
+            <label for="maxRange" class="sr-only">Maximum price</label>
+            <input type="range" id="maxRange" min="0" max="1000" value="750" aria-describedby="price-range-values"
+               class="absolute top-0 w-full h-1.5 bg-transparent appearance-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded" />
+
+            <div id="price-range-values"
+               class="flex justify-between text-slate-600 font-medium text-sm mt-4"
+               aria-live="polite">
+               <span id="minPrice">$750</span>
+               <span id="maxPrice">$1000</span>
+            </div>
+         </div>
+      </fieldset>
+
+
+      <hr class="my-6 border-slate-300" />
+
+      <!-- Color -->
+      <fieldset>
+         <legend class="text-slate-900 text-sm font-semibold">Color</legend>
+         <div class="flex flex-wrap gap-3 mt-4">
+            <button type="button" aria-label="Blue" aria-pressed="false"
+               class="cursor-pointer rounded-full bg-blue-700 w-8 h-8 hover:scale-[1.05] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"></button>
+            <button type="button" aria-label="Purple" aria-pressed="false"
+               class="cursor-pointer rounded-full bg-purple-700 w-8 h-8 hover:scale-[1.05] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"></button>
+            <button type="button" aria-label="Pink" aria-pressed="false"
+               class="cursor-pointer rounded-full bg-pink-700 w-8 h-8 hover:scale-[1.05] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"></button>
+            <button type="button" aria-label="Orange" aria-pressed="false"
+               class="cursor-pointer rounded-full bg-orange-700 w-8 h-8 hover:scale-[1.05] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"></button>
+            <button type="button" aria-label="Red" aria-pressed="false"
+               class="cursor-pointer rounded-full bg-red-700 w-8 h-8 hover:scale-[1.05] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"></button>
+            <button type="button" aria-label="Yellow" aria-pressed="false"
+               class="cursor-pointer rounded-full bg-yellow-700 w-8 h-8 hover:scale-[1.05] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"></button>
+            <button type="button" aria-label="Black" aria-pressed="false"
+               class="cursor-pointer rounded-full bg-black w-8 h-8 hover:scale-[1.05] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"></button>
+            <button type="button" aria-label="Gray" aria-pressed="false"
+               class="cursor-pointer rounded-full bg-gray-700 w-8 h-8 hover:scale-[1.05] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"></button>
+         </div>
+      </fieldset>
+   </div>
+
+   <!-- Products -->
+   <div class="w-full p-6" role="main" aria-label="Product results">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+         <div class="bg-gray-100 w-full h-48 rounded-md" role="img" aria-label="Product"></div>
+         <div class="bg-gray-100 w-full h-48 rounded-md" role="img" aria-label="Product"></div>
+         <div class="bg-gray-100 w-full h-48 rounded-md" role="img" aria-label="Product"></div>
+         <div class="bg-gray-100 w-full h-48 rounded-md" role="img" aria-label="Product"></div>
+         <div class="bg-gray-100 w-full h-48 rounded-md" role="img" aria-label="Product"></div>
+         <div class="bg-gray-100 w-full h-48 rounded-md" role="img" aria-label="Product"></div>
+      </div>
+   </div>
+</aside>
+ </section>
+
+    <!-- Conexión con js propia -->
+    <script src="Area de Pruebas.js"></script>
+
+  </body>
+</html>
