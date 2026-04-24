@@ -208,6 +208,7 @@ initCarousel();
 const ROWS_PER_LOAD = 75;
 const COLS = 5;
 let dexOffset = 1;
+const details_id = 0;
 
 function buildDexCard(pokemon) {
   const types = pokemon.types.map((t) => t.type.name);
@@ -226,6 +227,7 @@ function buildDexCard(pokemon) {
 
   card.addEventListener("click", () => {
     open("details.html");
+    details_id = card.dataset.id
   });
 
   return card;
