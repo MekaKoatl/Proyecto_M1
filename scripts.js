@@ -58,19 +58,16 @@ function getRegion(species) {
 }
 
 // API - POKEMON - SSPECIES - HABITAT - TRY1
-
 function getHabitat(species) {
   return species.habitat?.name ?? "Unknown";
 }
 
 // API - POKEMON - TIPO - TR1
-
 function getTypes(pokemon) {
   return pokemon.types.map((t) => t.type.name);
 }
 
 // API - POKEMON - SPRITES - TRY1
-
 function getSprites(pokemon) {
   return {
     front: pokemon.sprites.front_default,
@@ -104,8 +101,6 @@ function parseEvolutionChain(chain) {
 
 //////VOY A USAR ESTO EN EL FUTURO
 const TOTAL_POKEMON = 1025;
-const VISIBLE_COUNT = 5;
-const CENTER_INDEX = Math.floor(VISIBLE_COUNT / 2);
 const POOL_SIZE = 15;
 function getRandomPokemonId() {
   return Math.floor(Math.random() * TOTAL_POKEMON) + 1;
@@ -113,10 +108,11 @@ function getRandomPokemonId() {
 
 ///////////////////////////////////////////////////////////////////////////
 // Carousel
+const VISIBLE_COUNT = 5;
+const CENTER_INDEX = Math.floor(VISIBLE_COUNT / 2);
 let carouselPool = [];
 let poolIndex = 0;
 let isSliding = false;
-
 
 async function fetchPokemonById(id) {
   const res = await fetch(`${BASE_URL}/pokemon/${id}`);
@@ -169,9 +165,9 @@ async function slideNext() {
   const track = document.getElementById("carousel-track");
   const centerCard = track.children[CENTER_INDEX];
 
-  // 
+  //
   centerCard.classList.remove("center");
-      //TENGO QUE PREGUNTAR ESTO
+  //TENGO QUE PREGUNTAR ESTO
   await new Promise((r) => setTimeout(r, 500));
 
   // CONECTOR DE CARTAS
@@ -206,43 +202,52 @@ setInterval(slideNext, 6000);
 initCarousel();
 ///////////////////////////////////////////////////////////////////////////
 
-// DXG
-///////////////////////////////////////////////////////////////////////////
+// DXG - Crep que voy a usar la galeria para hacer el buscador de la primera pagina
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // DXG - General Gallery
-const ROWS_PER_LOAD = 10;
+const ROWS_PER_LOAD = 75;
 const COLS = 5;
 let dexOffset = 1;
 
 function buildDexCard(pokemon) {
-  const types = pokemon.types.map(t => t.type.name);
-  const card = document.createElement('div');
-  card.className = 'dex-card';
+  const types = pokemon.types.map((t) => t.type.name);
+  const card = document.createElement("div");
+  card.className = "dex-card";
   card.dataset.id = pokemon.id;
   card.innerHTML = `
+    <span class="dex-card-dexnum">#${card.dataset.id}</span>
     <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" />
     <span class="dex-card-name">${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</span>
     <hr>
     <div class="dex-card-types">
-      ${types.map(t => `<span class="type-badge type-${t}">${t}</span>`).join('')}
+      ${types.map((t) => `<span class="type-badge type-${t}">${t}</span>`).join("")}
     </div>
   `;
+
+  card.addEventListener("click", () => {
+    open("details.html");
+  });
+
   return card;
 }
 
 async function loadDexRows() {
-  const grid = document.getElementById('dex-grid');
+  const grid = document.getElementById("dex-grid");
   if (!grid) return;
 
-  const ids = Array.from({ length: ROWS_PER_LOAD * COLS }, (_, i) => dexOffset + i);
+  const ids = Array.from(
+    { length: ROWS_PER_LOAD * COLS },
+    (_, i) => dexOffset + i,
+  );
   dexOffset += ROWS_PER_LOAD * COLS;
 
   const pokemons = await Promise.all(ids.map(fetchPokemonById));
-  pokemons.filter(Boolean).forEach(p => grid.appendChild(buildDexCard(p)));
+  pokemons.filter(Boolean).forEach((p) => grid.appendChild(buildDexCard(p)));
 }
 
-const loadMoreBtn = document.getElementById('load-more-btn');
+const loadMoreBtn = document.getElementById("load-more-btn");
 if (loadMoreBtn) {
-  loadMoreBtn.addEventListener('click', loadDexRows);
+  loadMoreBtn.addEventListener("click", loadDexRows);
   loadDexRows();
 }
 ///////////////////////////////////////////////////////////////////////////
