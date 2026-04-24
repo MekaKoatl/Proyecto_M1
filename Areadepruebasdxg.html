@@ -54,52 +54,44 @@
     <!-- Fin Navbar -->
 
 <!-- Filters -------------------------------------------------------------------------->
-
-<div id="filters" class="max-w-7xl mx-auto px-4 pt-6 text-gray-700">
-
-  <div class="flex flex-col gap-4 bg-gray-50 border border-gray-200 rounded-lg p-4">
+<div id="filters" class="max-w-7xl mx-auto px-4 pt-6">
+  <div class="flex flex-wrap gap-0 border border-gray-200 rounded-lg overflow-hidden divide-x divide-gray-200">
 
     <!-- Type -->
-    <div>
-      <h3 class="font-bold mb-2 text-sm uppercase tracking-wide">Type</h3>
-      <div id="filter-types" class="flex flex-wrap gap-2"></div>
+    <div class="filter-group">
+      <button class="filter-group-btn">Type ▾</button>
+      <div class="filter-dropdown" id="filter-types"></div>
     </div>
 
     <!-- Region -->
-    <div>
-      <h3 class="font-bold mb-2 text-sm uppercase tracking-wide">Region</h3>
-      <div id="filter-regions" class="flex flex-wrap gap-2"></div>
+    <div class="filter-group">
+      <button class="filter-group-btn">Region ▾</button>
+      <div class="filter-dropdown" id="filter-regions"></div>
     </div>
 
     <!-- Generation -->
-    <div>
-      <h3 class="font-bold mb-2 text-sm uppercase tracking-wide">Generation</h3>
-      <div id="filter-gens" class="flex flex-wrap gap-2"></div>
+    <div class="filter-group">
+      <button class="filter-group-btn">Generation ▾</button>
+      <div class="filter-dropdown" id="filter-gens"></div>
     </div>
 
     <!-- Name Initial -->
-    <div>
-      <h3 class="font-bold mb-2 text-sm uppercase tracking-wide">Name starts with</h3>
-      <div id="filter-letters" class="flex flex-wrap gap-1"></div>
+    <div class="filter-group">
+      <button class="filter-group-btn">Name Initial ▾</button>
+      <div class="filter-dropdown" id="filter-letters"></div>
     </div>
 
     <!-- Evolutions -->
-    <div>
-      <h3 class="font-bold mb-2 text-sm uppercase tracking-wide">Evolution chain size</h3>
-      <div id="filter-evos" class="flex flex-wrap gap-2"></div>
-    </div>
-
-    <!-- Buttons -->
-    <div class="flex gap-2 mt-2">
-      <button id="apply-filters-btn" class="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition text-sm">
-        Apply Filters
-      </button>
-      <button id="clear-filters-btn" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition text-sm">
-        Clear
-      </button>
+    <div class="filter-group">
+      <button class="filter-group-btn">Total Evolutions ▾</button>
+      <div class="filter-dropdown" id="filter-evos"></div>
     </div>
 
   </div>
+
+  <button id="apply-filters-btn" class="mt-3 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition text-sm">
+    Apply Filters
+  </button>
 </div>
 
 

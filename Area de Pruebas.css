@@ -1,3 +1,5 @@
+/* -------------------------------------------------------------------------------- index Carousel ----------------------------------------------------------------- */
+
 .carousel-wrapper {
   width: 100%;
   max-width: 1080px;
@@ -25,14 +27,18 @@
   border: 2px solid #e5e7eb;
   opacity: 0.2;
   transform: scale(0.8);
-  transition: opacity 0.5s ease, transform 0.5s ease, border 0.5s ease, background-color 0.5s ease;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease,
+    border 0.5s ease,
+    background-color 0.5s ease;
 }
 
 .carousel-card.center {
   opacity: 1;
   transform: scale(1);
   background-color: #ffffff;
-  border: 2px solid #ef4444;
+  border: 4px double #ef4444;
   /* box-shadow: 0 10px 15px rgba(0,0,0,0.2); */
 }
 
@@ -79,3 +85,181 @@
     height: 130px;
   }
 } */
+
+/* -------------------------------------------------------------------------------- DXG - General Gallery ----------------------------------------------------------------- */
+.dex-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9fafb;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1rem 0.5rem;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.dex-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dex-card img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+
+.dex-card-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #111827;
+  margin-top: 0.4rem;
+}
+
+.dex-card-dexnum {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #11182798;
+  margin-top: 0.4rem;
+  /* align-self: flex-start;
+  padding-left: 0.5rem; */
+}
+
+.dex-card-types {
+  display: flex;
+  /* gap: 0.3rem; */
+  margin-top: 0.4rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  
+}
+
+.type-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0px;
+  color: rgb(255, 255, 255);
+  text-transform: capitalize;
+}
+
+/* Tipos de Pokemon */
+.type-fire {
+  background-color: #f08030;
+}
+.type-water {
+  background-color: #6890f0;
+}
+.type-grass {
+  background-color: #78c850;
+}
+.type-electric {
+  background-color: #f8d030;
+  color: #111827;
+}
+.type-ice {
+  background-color: #98d8d8;
+}
+.type-fighting {
+  background-color: #c03028;
+}
+.type-poison {
+  background-color: #a040a0;
+}
+.type-ground {
+  background-color: #e0c068;
+  color: #111827;
+}
+.type-flying {
+  background-color: #a890f0;
+}
+.type-psychic {
+  background-color: #f85888;
+}
+.type-bug {
+  background-color: #a8b820;
+}
+.type-rock {
+  background-color: #b8a038;
+}
+.type-ghost {
+  background-color: #705898;
+}
+.type-dragon {
+  background-color: #7038f8;
+}
+.type-dark {
+  background-color: #705848;
+}
+.type-steel {
+  background-color: #b8b8d0;
+  color: #111827;
+}
+.type-fairy {
+  background-color: #ee99ac;
+}
+.type-normal {
+  background-color: #a8a878;
+}
+
+/* Filtersssssssssssssssssssssssssssssssssssssss */
+.filter-group {
+  position: relative;
+  flex: 1;
+  min-width: 120px;
+}
+
+.filter-group-btn {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #111827;
+  background: white;
+  text-align: left;
+  cursor: pointer;
+  border: none;
+}
+
+.filter-group-btn:hover {
+  background-color: #f9fafb;
+}
+
+.filter-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 50;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.filter-dropdown.open {
+  display: flex;
+}
+
+.filter-dropdown label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: #374151;
+  cursor: pointer;
+  padding: 0.2rem 0.3rem;
+  border-radius: 0.3rem;
+}
+
+.filter-dropdown label:hover {
+  background-color: #f3f4f6;
+}
