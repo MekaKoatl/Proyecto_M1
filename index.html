@@ -10,7 +10,11 @@
     <!-- Fin Stylesheets -->
   </head>
   <!-- Favicon -->
-   <link href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAx8f/AMzMzAD///8AHR21ACIi4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzMzMzMzIiIzMzMzMzMyIjMzMzMzMzIiMzMzMAMzMyIzMzMAADMzIjMzMAMwAzMiAAAAMAMAAAAAAAAwAwAAAFVVUAMwBVVEVVVVAABVVURVVVVQBVVVRFFVVVVVVVVEUVVVVVVVVURVFVVVVVVURFVRFVVVVUREVVVVVVVUREQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" rel="icon" type="image/x-icon">
+  <link
+    href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAx8f/AMzMzAD///8AHR21ACIi4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzMzMzMzIiIzMzMzMzMyIjMzMzMzMzIiMzMzMAMzMyIzMzMAADMzIjMzMAMwAzMiAAAAMAMAAAAAAAAwAwAAAFVVUAMwBVVEVVVVAABVVURVVVVQBVVVRFFVVVVVVVVEUVVVVVVVVURVFVVVVVVURFVRFVVVVUREVVVVVVVUREQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    rel="icon"
+    type="image/x-icon"
+  />
   <!-- Color de fondo -->
   <body class="bg-white-900 text-white min-h-screen">
     <!-- Navbar -->
@@ -53,15 +57,84 @@
     <!-- Fin Navbar -->
 
     <!-- Carousel Section -->
-   <section class="py-8 flex justify-center">
-  <div class="carousel-wrapper">
-    <div id="carousel-track" class="carousel-track">
-    </div>
-  </div>
-</section>
+    <section class="py-8 flex justify-center">
+      <div class="carousel-wrapper">
+        <div id="carousel-track" class="carousel-track"></div>
+      </div>
+    </section>
 
     <!-- Search Section -->
-    <section></section>
+    <section class="max-w-7xl mx-auto px-4 py-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Pokémon Search</h2>
+      <div class="flex gap-6">
+        <!-- Filters Sidebar -->
+        <div class="w-48 flex-shrink-0 text-gray-700">
+          <div
+            class="flex flex-col gap-3 bg-gray-50 border border-gray-200 rounded-lg p-3"
+          >
+            <div class="filter-section">
+              <button
+                class="index-filter-btn font-bold text-sm w-full text-left"
+              >
+                □ Type ▾
+              </button>
+              <div
+                class="index-filter-dropdown hidden flex-col gap-1 mt-1 pl-2"
+                id="filter-types"
+              ></div>
+            </div>
+
+            <div class="filter-section">
+              <button
+                class="index-filter-btn font-bold text-sm w-full text-left"
+              >
+                □ Generation ▾
+              </button>
+              <div
+                class="index-filter-dropdown hidden flex-col gap-1 mt-1 pl-2"
+                id="filter-gens"
+              ></div>
+            </div>
+
+            <div class="filter-section">
+              <button
+                class="index-filter-btn font-bold text-sm w-full text-left"
+              >
+                □ Region ▾
+              </button>
+              <div
+                class="index-filter-dropdown hidden flex-col gap-1 mt-1 pl-2"
+                id="filter-regions"
+              ></div>
+            </div>
+
+            <button
+              id="apply-filters-btn"
+              class="px-3 py-1 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-red-700 transition"
+            >
+              Apply
+            </button>
+            <button
+              id="clear-filters-btn"
+              class="px-3 py-1 bg-gray-200 text-gray-700 text-sm font-semibold rounded-lg hover:bg-gray-300 transition"
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+
+        <!-- Search + Grid -->
+        <div class="flex-1 flex flex-col gap-4">
+          <input
+            id="pokemon-search"
+            type="text"
+            placeholder="Search Pokémon by name..."
+            class="w-full px-4 py-2 border border-gray-300 rounded-full text-gray-700 text-sm focus:outline-none focus:border-red-400"
+          />
+          <div id="dex-grid" class="grid grid-cols-3 gap-4"></div>
+        </div>
+      </div>
+    </section>
 
     <!-- Conexión con js propia -->
     <script src="scripts.js"></script>

@@ -109,7 +109,7 @@ let allLoadedPokemon = [];
 let speciesCache = {};
 
 ///////////////////////////////////////////////////////////////////////////
-// Carousel
+// Carousel y Buscadode de Index
 const VISIBLE_COUNT = 5;
 const CENTER_INDEX = Math.floor(VISIBLE_COUNT / 2);
 let carouselPool = [];
@@ -162,6 +162,41 @@ async function initCarousel() {
 }
 ///////////////////////// ENTIENDO QUE BUILDCARD GENERA LA CARTA, GETCARDWIDTH GENERA SUS DIMENSIONES Y ES PARTE DE MI PROBLEMA CON EL CAROUSEL Y INICAROUSEL LO AGREGA/CONFIRMA
 
+// Index buscador asi es
+const idxGrid = document.getElementById("dex-grid");
+if (idxGrid && !document.getElementById("load-more-btn")) {
+  initFilters();
+  loadAllPokemonNames();
+
+  // Load (5 rows x 3 cols)
+  (async () => {
+    const ids = Array.from({ length: 15 }, (_, i) => i + 1);
+    const pokemons = (await Promise.all(ids.map(fetchPokemonById))).filter(
+      Boolean,
+    );
+    allLoadedPokemon.push(...pokemons);
+    pokemons.forEach((p) => idxGrid.appendChild(buildDexCard(p)));
+  })();
+
+  // Toggle sidebar dropdowns
+  document.querySelectorAll(".index-filter-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const dropdown = btn.nextElementSibling;
+      dropdown.classList.toggle("open");
+    });
+  });
+
+  // Search
+  let idxSearchTimeout;
+  document.getElementById("pokemon-search")?.addEventListener("input", (e) => {
+    clearTimeout(idxSearchTimeout);
+    idxSearchTimeout = setTimeout(
+      () => searchPokemon(e.target.value.trim()),
+      400,
+    );
+  });
+}
+///////////////////////////////////////
 ////// PARTE DEL ANIMADOR
 async function slideNext() {
   if (isSliding) return;
