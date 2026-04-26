@@ -178,7 +178,7 @@ if (idxGrid && !document.getElementById("load-more-btn")) {
     pokemons.forEach((p) => idxGrid.appendChild(buildDexCard(p)));
   })();
 
-  // Toggle sidebar dropdowns
+  // Toggle sidebar dropdowns PORQ CHINGADOS 
   document.querySelectorAll(".index-filter-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       const dropdown = btn.nextElementSibling;
@@ -924,4 +924,16 @@ if (loadMoreBtn) {
   initFilters();
   loadMoreBtn.addEventListener("click", loadDexRows);
   loadDexRows();
+}
+
+// Back to topppps
+const backToTopBtn = document.getElementById('back-to-top');
+if (backToTopBtn) {
+  window.addEventListener('scroll', () => {
+    backToTopBtn.classList.toggle('hidden', window.scrollY < 400);
+    backToTopBtn.classList.toggle('flex', window.scrollY >= 400);
+  });
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 }
