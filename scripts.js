@@ -124,11 +124,19 @@ async function fetchPokemonById(id) {
 
 /////// RENDERIZADOR DE CARDS
 function buildCard(pokemon, isCenter = false) {
-  // card.dataset.id = pokemon.id;
   const card = document.createElement("div");
   card.className = `carousel-card${isCenter ? " center" : ""}`;
+  const staticSprite = pokemon.sprites.front_default;
+  const animatedSprite =
+    pokemon.sprites.versions?.["generation-v"]?.["black-white"]?.animated
+      ?.front_default || staticSprite;
   card.innerHTML = `
-    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" />
+    <img 
+      src="${isCenter ? animatedSprite : staticSprite}" 
+      data-static="${staticSprite}"
+      data-animated="${animatedSprite}"
+      alt="${pokemon.name}" 
+    />
     <span>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</span>
   `;
   card.style.cursor = "pointer";
@@ -178,7 +186,7 @@ if (idxGrid && !document.getElementById("load-more-btn")) {
     pokemons.forEach((p) => idxGrid.appendChild(buildDexCard(p)));
   })();
 
-  // Toggle sidebar dropdowns PORQ CHINGADOS 
+  // Toggle sidebar dropdowns PORQ CHINGADOS
   document.querySelectorAll(".index-filter-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       const dropdown = btn.nextElementSibling;
@@ -230,6 +238,11 @@ async function slideNext() {
 
     Array.from(track.children).forEach((card, i) => {
       card.classList.toggle("center", i === CENTER_INDEX);
+      const img = card.querySelector("img");
+      if (img) {
+        img.src =
+          i === CENTER_INDEX ? img.dataset.animated : img.dataset.static;
+      }
     });
 
     isSliding = false;
@@ -253,12 +266,15 @@ const details_id = 0;
 
 function buildDexCard(pokemon) {
   const types = pokemon.types.map((t) => t.type.name);
+  const staticSprite = pokemon.sprites.front_default;
+  const animatedSprite = pokemon.sprites.versions?.['generation-v']?.['black-white']?.animated?.front_default || staticSprite;
+  
   const card = document.createElement("div");
   card.className = "dex-card";
   card.dataset.id = pokemon.id;
   card.innerHTML = `
     <span class="dex-card-dexnum">#${card.dataset.id}</span>
-    <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" />
+    <img src="${staticSprite}" data-static="${staticSprite}" data-animated="${animatedSprite}" alt="${pokemon.name}" />
     <span class="dex-card-name">${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</span>
     <hr>
     <div class="dex-card-types">
@@ -266,13 +282,11 @@ function buildDexCard(pokemon) {
     </div>
   `;
 
-  ////////////////////////////////////////////////////////////// Así es como me dijo chat en clase que lo resolviera Hugo
+  const img = card.querySelector('img');
+  card.addEventListener('mouseenter', () => { img.src = img.dataset.animated; });
+  card.addEventListener('mouseleave', () => { img.src = img.dataset.static; });
   card.addEventListener("click", () => {
     window.location.href = `details.html?id=${pokemon.id}`;
-    // card.addEventListener("click", () => {
-    //   open("details.html");
-    //   details_id = card.dataset.id
-    // });
   });
 
   return card;
@@ -927,13 +941,13 @@ if (loadMoreBtn) {
 }
 
 // Back to topppps
-const backToTopBtn = document.getElementById('back-to-top');
+const backToTopBtn = document.getElementById("back-to-top");
 if (backToTopBtn) {
-  window.addEventListener('scroll', () => {
-    backToTopBtn.classList.toggle('hidden', window.scrollY < 400);
-    backToTopBtn.classList.toggle('flex', window.scrollY >= 400);
+  window.addEventListener("scroll", () => {
+    backToTopBtn.classList.toggle("hidden", window.scrollY < 400);
+    backToTopBtn.classList.toggle("flex", window.scrollY >= 400);
   });
-  backToTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 }
