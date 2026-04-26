@@ -9,8 +9,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Fin Stylesheets -->
   </head>
-   <!-- Favicon -->
-   <link href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAx8f/AMzMzAD///8AHR21ACIi4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzMzMzMzIiIzMzMzMzMyIjMzMzMzMzIiMzMzMAMzMyIzMzMAADMzIjMzMAMwAzMiAAAAMAMAAAAAAAAwAwAAAFVVUAMwBVVEVVVVAABVVURVVVVQBVVVRFFVVVVVVVVEUVVVVVVVVURVFVVVVVVURFVRFVVVVUREVVVVVVVUREQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" rel="icon" type="image/x-icon">
+  <!-- Favicon -->
+  <link
+    href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAx8f/AMzMzAD///8AHR21ACIi4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzMzMzMzIiIzMzMzMzMyIjMzMzMzMzIiMzMzMAMzMyIzMzMAADMzIjMzMAMwAzMiAAAAMAMAAAAAAAAwAwAAAFVVUAMwBVVEVVVVAABVVURVVVVQBVVVRFFVVVVVVVVEUVVVVVVVVURVFVVVVVVURFVRFVVVVUREVVVVVVVUREQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    rel="icon"
+    type="image/x-icon"
+  />
   <!-- Color de fondo -->
   <body class="bg-white-900 text-white min-h-screen">
     <!-- Navbar -->
@@ -53,56 +57,79 @@
     </nav>
     <!-- Fin Navbar -->
 
-<!-- Filters -------------------------------------------------------------------------->
-
-<div id="filters" class="max-w-7xl mx-auto px-4 pt-6 text-gray-700">
-
-  <div class="flex flex-col gap-4 bg-gray-50 border border-gray-200 rounded-lg p-4">
-
-    <!-- Type -->
-    <div>
-      <h3 class="font-bold mb-2 text-sm uppercase tracking-wide">Type</h3>
-      <div id="filter-types" class="flex flex-wrap gap-2"></div>
-    </div>
-
-    <!-- Region -->
-    <div>
-      <h3 class="font-bold mb-2 text-sm uppercase tracking-wide">Region</h3>
-      <div id="filter-regions" class="flex flex-wrap gap-2"></div>
-    </div>
-
-    <!-- Generation -->
-    <div>
-      <h3 class="font-bold mb-2 text-sm uppercase tracking-wide">Generation</h3>
-      <div id="filter-gens" class="flex flex-wrap gap-2"></div>
-    </div>
-
-    <!-- Name Initial -->
-    <div>
-      <h3 class="font-bold mb-2 text-sm uppercase tracking-wide">Name starts with</h3>
-      <div id="filter-letters" class="flex flex-wrap gap-1"></div>
-    </div>
-
-    <!-- Evolutions -->
-    <div>
-      <h3 class="font-bold mb-2 text-sm uppercase tracking-wide">Evolution chain size</h3>
-      <div id="filter-evos" class="flex flex-wrap gap-2"></div>
-    </div>
-
-    <!-- Buttons -->
-    <div class="flex gap-2 mt-2">
-      <button id="apply-filters-btn" class="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition text-sm">
-        Apply Filters
-      </button>
-      <button id="clear-filters-btn" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition text-sm">
-        Clear
-      </button>
-    </div>
-
+    <!-- Buscador Meowth así es -->
+<div class="max-w-7xl mx-auto px-4 pt-6">
+  <div class="flex gap-2">
+    <input 
+      id="pokemon-search" 
+      type="text" 
+      placeholder="Search Pokémon by name..." 
+      class="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 text-sm focus:outline-none focus:border-red-400"
+    />
+    <button id="clear-search-btn" class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition text-sm">
+      Clear
+    </button>
   </div>
 </div>
 
+    <!-- Filters -------------------------------------------------------------------------->
+    <div id="filters" class="max-w-7xl mx-auto px-4 pt-6 text-gray-700">
+      <div
+        class="flex flex-col gap-4 bg-gray-50 border border-gray-200 rounded-lg p-4"
+      >
+        <!-- Type -->
+        <div>
+          <h3 class="font-bold mb-2 text-sm uppercase tracking-wide">Type</h3>
+          <div id="filter-types" class="flex flex-wrap gap-2"></div>
+        </div>
 
+        <!-- Region -->
+        <div>
+          <h3 class="font-bold mb-2 text-sm uppercase tracking-wide">Region</h3>
+          <div id="filter-regions" class="flex flex-wrap gap-2"></div>
+        </div>
+
+        <!-- Generation -->
+        <div>
+          <h3 class="font-bold mb-2 text-sm uppercase tracking-wide">
+            Generation
+          </h3>
+          <div id="filter-gens" class="flex flex-wrap gap-2"></div>
+        </div>
+
+        <!-- Name Initial -->
+        <div>
+          <h3 class="font-bold mb-2 text-sm uppercase tracking-wide">
+            Name starts with
+          </h3>
+          <div id="filter-letters" class="flex flex-wrap gap-1"></div>
+        </div>
+
+        <!-- Evolutions -->
+        <div>
+          <h3 class="font-bold mb-2 text-sm uppercase tracking-wide">
+            Evolution chain size
+          </h3>
+          <div id="filter-evos" class="flex flex-wrap gap-2"></div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex gap-2 mt-2">
+          <button
+            id="apply-filters-btn"
+            class="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition text-sm"
+          >
+            Apply Filters
+          </button>
+          <button
+            id="clear-filters-btn"
+            class="px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition text-sm"
+          >
+            Clear
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- General Gallery ------------------------------------------------------------->
     <section class="max-w-7xl mx-auto px-4 py-8">
