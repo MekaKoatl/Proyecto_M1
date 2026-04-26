@@ -131,6 +131,10 @@ function buildCard(pokemon, isCenter = false) {
     <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" />
     <span>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</span>
   `;
+  card.style.cursor = "pointer";
+  card.addEventListener("click", () => {
+    window.location.href = `details.html?id=${pokemon.id}`;
+  });
   return card;
 }
 
@@ -731,9 +735,9 @@ if (applyBtn) applyBtn.addEventListener("click", applyFilters);
 ///////////////////////////////////////////////////////////////////////////
 // Details Page
 // Details Page
-if (window.location.pathname.includes('details')) {
+if (window.location.pathname.includes("details")) {
   const params = new URLSearchParams(window.location.search);
-  const pokemonId = params.get('id');
+  const pokemonId = params.get("id");
 
   if (pokemonId) {
     (async () => {
@@ -741,87 +745,133 @@ if (window.location.pathname.includes('details')) {
       const species = await getPokemonSpecies(pokemonId);
       const evoChain = await getEvolutionChain(species.evolution_chain.url);
 
-      // Name + ID
-      document.getElementById('detail-name').textContent =
-        `#${String(pokemon.id).padStart(3, '0')} ${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}`;
+      // Name + DEX ID
+      document.getElementById("detail-name").textContent =
+        `#${String(pokemon.id).padStart(3, "0")} ${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}`;
 
       // Genus
-      document.getElementById('detail-genus').textContent = getEnglishGenus(species);
+      document.getElementById("detail-genus").textContent =
+        getEnglishGenus(species);
 
       // Main sprite
       const mainSprite = pokemon.sprites.front_default;
-      document.getElementById('sprite-main').src = mainSprite;
-      document.getElementById('sprite-evo').src = mainSprite;
-      document.getElementById('detail-evo-name').textContent =
+      document.getElementById("sprite-main").src = mainSprite;
+      document.getElementById("sprite-evo").src = mainSprite;
+      document.getElementById("detail-evo-name").textContent =
         pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
 
       // Sprite gallery
       const sprites = [
-        { src: pokemon.sprites.back_default, label: 'Back' },
-        { src: pokemon.sprites.front_shiny, label: 'Shiny' },
-        { src: pokemon.sprites.back_shiny, label: 'Back Shiny' },
-        { src: pokemon.sprites.versions?.['generation-v']?.['black-white']?.animated?.front_default, label: 'Animated' },
-        { src: pokemon.sprites.versions?.['generation-v']?.['black-white']?.animated?.back_default, label: 'Animated Back' },
-      ].filter(s => s.src);
+        { src: pokemon.sprites.front_default, label: "Front" },
+        { src: pokemon.sprites.back_default, label: "Back" },
+        { src: pokemon.sprites.front_shiny, label: "Shiny" },
+        { src: pokemon.sprites.back_shiny, label: "Back Shiny" },
+        {
+          src: pokemon.sprites.versions?.["generation-v"]?.["black-white"]
+            ?.animated?.front_default,
+          label: "Animated",
+        },
+        {
+          src: pokemon.sprites.versions?.["generation-v"]?.["black-white"]
+            ?.animated?.back_default,
+          label: "Animated Back",
+        },
+      ].filter((s) => s.src);
 
-      const gallery = document.getElementById('sprite-gallery');
-      sprites.forEach(s => {
-        const img = document.createElement('img');
+      const gallery = document.getElementById("sprite-gallery");
+      sprites.forEach((s) => {
+        const img = document.createElement("img");
         img.src = s.src;
         img.alt = s.label;
-        img.className = 'w-24 h-24 object-contain bg-gray-100 rounded-lg cursor-pointer hover:ring-2 hover:ring-red-400 transition';
-        img.addEventListener('click', () => {
-          document.getElementById('sprite-main').src = s.src;
+        img.className =
+          "w-24 h-24 object-contain bg-gray-100 rounded-lg cursor-pointer hover:ring-2 hover:ring-red-400 transition";
+        img.addEventListener("click", () => {
+          document.getElementById("sprite-main").src = s.src;
         });
         gallery.appendChild(img);
       });
 
       // Types
-      const typesEl = document.getElementById('detail-types');
-      pokemon.types.forEach(t => {
-        const badge = document.createElement('span');
+      const typesEl = document.getElementById("detail-types");
+      pokemon.types.forEach((t) => {
+        const badge = document.createElement("span");
         badge.className = `type-badge type-${t.type.name}`;
         badge.textContent = t.type.name;
         typesEl.appendChild(badge);
       });
 
       // Generation
-      const genRaw = species.generation?.name ?? '';
-      const genMap = { 'generation-i':'I', 'generation-ii':'II', 'generation-iii':'III', 'generation-iv':'IV', 'generation-v':'V', 'generation-vi':'VI', 'generation-vii':'VII', 'generation-viii':'VIII', 'generation-ix':'IX' };
-      const regionMap = { 'generation-i':'Kanto', 'generation-ii':'Johto', 'generation-iii':'Hoenn', 'generation-iv':'Sinnoh', 'generation-v':'Unova', 'generation-vi':'Kalos', 'generation-vii':'Alola', 'generation-viii':'Galar', 'generation-ix':'Paldea' };
-      document.getElementById('detail-generation').innerHTML =
+      const genRaw = species.generation?.name ?? "";
+      const genMap = {
+        "generation-i": "I",
+        "generation-ii": "II",
+        "generation-iii": "III",
+        "generation-iv": "IV",
+        "generation-v": "V",
+        "generation-vi": "VI",
+        "generation-vii": "VII",
+        "generation-viii": "VIII",
+        "generation-ix": "IX",
+      };
+      const regionMap = {
+        "generation-i": "Kanto",
+        "generation-ii": "Johto",
+        "generation-iii": "Hoenn",
+        "generation-iv": "Sinnoh",
+        "generation-v": "Unova",
+        "generation-vi": "Kalos",
+        "generation-vii": "Alola",
+        "generation-viii": "Galar",
+        "generation-ix": "Paldea",
+      };
+      document.getElementById("detail-generation").innerHTML =
         `<span class="font-bold">Gen ${genMap[genRaw]}</span> <span class="text-gray-400">— ${regionMap[genRaw]}</span>`;
 
       // Habitat
-      document.getElementById('detail-habitat').textContent = getHabitat(species);
+      document.getElementById("detail-habitat").textContent =
+        getHabitat(species);
 
       // Flavor text
-      document.getElementById('detail-flavor').textContent = getEnglishFlavorText(species);
+      document.getElementById("detail-flavor").textContent =
+        getEnglishFlavorText(species);
 
       // Evolution chain
       const evolutions = parseEvolutionChain(evoChain);
-      const currentEvo = evolutions.find(e => e.name === pokemon.name);
-      const prevEvo = evolutions.find(e => e.evolvesTo.some(ev => ev.name === pokemon.name));
+      const currentEvo = evolutions.find((e) => e.name === pokemon.name);
+      const prevEvo = evolutions.find((e) =>
+        e.evolvesTo.some((ev) => ev.name === pokemon.name),
+      );
 
       if (prevEvo) {
         const prevPokemon = await getPokemon(prevEvo.name);
-        document.getElementById('detail-evolves-from').innerHTML = `
-          <h3 class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2">Evolves From</h3>
-          <img src="${prevPokemon.sprites.front_default}" class="w-16 h-16 object-contain mx-auto" />
-          <p class="text-sm font-semibold text-gray-700 mt-1 capitalize">${prevEvo.name}</p>
-        `;
+        document.getElementById("detail-evolves-from").innerHTML = `
+  <h3 class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2">Evolves From</h3>
+  <img src="${prevPokemon.sprites.front_default}" class="w-16 h-16 object-contain mx-auto" />
+  <p class="text-sm font-semibold text-gray-700 mt-1 capitalize">${prevEvo.name}</p>
+`;
+        document.getElementById("detail-evolves-from").style.cursor = "pointer";
+        document
+          .getElementById("detail-evolves-from")
+          .addEventListener("click", () => {
+            window.location.href = `details.html?id=${prevPokemon.id}`;
+          });
       }
 
       if (currentEvo?.evolvesTo?.length) {
         const nextName = currentEvo.evolvesTo[0].name;
         const nextPokemon = await getPokemon(nextName);
-        document.getElementById('detail-evolves-to').innerHTML = `
-          <h3 class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2">Evolves To</h3>
-          <img src="${nextPokemon.sprites.front_default}" class="w-16 h-16 object-contain mx-auto" />
-          <p class="text-sm font-semibold text-gray-700 mt-1 capitalize">${nextName}</p>
-        `;
+        document.getElementById("detail-evolves-to").innerHTML = `
+  <h3 class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2">Evolves To</h3>
+  <img src="${nextPokemon.sprites.front_default}" class="w-16 h-16 object-contain mx-auto" />
+  <p class="text-sm font-semibold text-gray-700 mt-1 capitalize">${nextName}</p>
+`;
+        document.getElementById("detail-evolves-to").style.cursor = "pointer";
+        document
+          .getElementById("detail-evolves-to")
+          .addEventListener("click", () => {
+            window.location.href = `details.html?id=${nextPokemon.id}`;
+          });
       }
-
     })();
   }
 }
