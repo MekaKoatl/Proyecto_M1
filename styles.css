@@ -232,17 +232,26 @@
 
 /* ── RESPONSIVE ─────────────────────────────────────────────────────────────────────────────────────────────── */
 
-/* Carousel: 1 visible en móvil, 3 en tablet */
+/* Carousel*/
 @media (max-width: 639px) {
-  .carousel-card {
-    flex: 0 0 160px;
-    height: 160px;
-    opacity: 0;
-    pointer-events: none;
+  .carousel-wrapper {
+    display: flex;
+    justify-content: center;
+    overflow: visible;
+    height: 220px; /* altura fija, nunca colapsa */
+    align-items: center;
   }
+
+  .carousel-track {
+    justify-content: center;
+  }
+
+  .carousel-card {
+    display: none;
+  }
+
   .carousel-card.center {
-    opacity: 1;
-    pointer-events: auto;
+    display: flex;
     flex: 0 0 200px;
     height: 200px;
   }
@@ -252,5 +261,32 @@
 @media (max-width: 767px) {
   #filters .flex {
     flex-direction: column;
+  }
+}
+
+/* ── HAMBURGER MENU ─────────────────────────────────── */
+#mobile-menu {
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #dc2626;
+  align-items: flex-end;
+}
+
+#mobile-menu.open {
+  display: flex;
+}
+
+#hamburger-btn {
+  display: none;
+}
+
+@media (max-width: 639px) {
+  #hamburger-btn {
+    display: block;
+  }
+  #nav-links {
+    display: none;
   }
 }

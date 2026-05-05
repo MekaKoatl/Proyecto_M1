@@ -951,3 +951,11 @@ if (backToTopBtn) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 }
+
+// Hamburger menu
+const hamburgerBtn = document.getElementById("hamburger-btn");
+if (hamburgerBtn) {
+  hamburgerBtn.addEventListener("click", () => {
+    document.getElementById("mobile-menu").classList.toggle("open");
+  });
+}
