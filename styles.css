@@ -229,3 +229,28 @@
   accent-color: #ef4444;
   cursor: pointer;
 }
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────────────────────────────────────────────────── */
+
+/* Carousel: 1 visible en móvil, 3 en tablet */
+@media (max-width: 639px) {
+  .carousel-card {
+    flex: 0 0 160px;
+    height: 160px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .carousel-card.center {
+    opacity: 1;
+    pointer-events: auto;
+    flex: 0 0 200px;
+    height: 200px;
+  }
+}
+
+/* Filtros DXG: apilados en móvil */
+@media (max-width: 767px) {
+  #filters .flex {
+    flex-direction: column;
+  }
+}
