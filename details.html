@@ -29,12 +29,15 @@
             alt="Pokeball"
             class="w-8 h-8"
           />
-          <h1 class="text-lg sm:text-2xl font-bold tracking-wide">
+          <h1
+            class="text-lg sm:text-2xl font-bold tracking-wide whitespace-nowrap"
+          >
             CRAF Pokédex - Project
           </h1>
         </div>
-        <!-- Nav Links -->
+        <!-- Nav Links (desktop) -->
         <ul
+          id="nav-links"
           class="flex items-center gap-1 sm:gap-4 text-sm sm:text-base font-semibold"
         >
           <li>
@@ -52,6 +55,23 @@
             >
           </li>
         </ul>
+        <!-- Hamburger (móvil) -->
+        <button id="hamburger-btn" class="text-white text-2xl font-bold px-2">
+          ☰
+        </button>
+      </div>
+      <!-- Mobile Menu -->
+      <div id="mobile-menu">
+        <a
+          href="index.html"
+          class="text-white font-semibold hover:bg-red-700 px-3 py-2 rounded transition"
+          >Home</a
+        >
+        <a
+          href="DXG.html"
+          class="text-white font-semibold hover:bg-red-700 px-3 py-2 rounded transition"
+          >General Dex Gallery</a
+        >
       </div>
     </nav>
     <!-- Fin Navbar -->
