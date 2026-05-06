@@ -267,8 +267,10 @@ const details_id = 0;
 function buildDexCard(pokemon) {
   const types = pokemon.types.map((t) => t.type.name);
   const staticSprite = pokemon.sprites.front_default;
-  const animatedSprite = pokemon.sprites.versions?.['generation-v']?.['black-white']?.animated?.front_default || staticSprite;
-  
+  const animatedSprite =
+    pokemon.sprites.versions?.["generation-v"]?.["black-white"]?.animated
+      ?.front_default || staticSprite;
+
   const card = document.createElement("div");
   card.className = "dex-card";
   card.dataset.id = pokemon.id;
@@ -282,9 +284,13 @@ function buildDexCard(pokemon) {
     </div>
   `;
 
-  const img = card.querySelector('img');
-  card.addEventListener('mouseenter', () => { img.src = img.dataset.animated; });
-  card.addEventListener('mouseleave', () => { img.src = img.dataset.static; });
+  const img = card.querySelector("img");
+  card.addEventListener("mouseenter", () => {
+    img.src = img.dataset.animated;
+  });
+  card.addEventListener("mouseleave", () => {
+    img.src = img.dataset.static;
+  });
   card.addEventListener("click", () => {
     window.location.href = `details.html?id=${pokemon.id}`;
   });
@@ -775,6 +781,25 @@ async function applyFilters() {
   }
 
   filtered.forEach((p) => grid.appendChild(buildDexCard(p)));
+}
+
+// Toggle filtros index
+const indexFilterToggle = document.getElementById("index-filter-toggle");
+if (indexFilterToggle) {
+  indexFilterToggle.addEventListener("click", () => {
+    const panel = document.getElementById("index-filter-panel");
+    panel.classList.toggle("hidden");
+  });
+}
+
+// Toggle filtros DXG
+const dxgFilterToggle = document.getElementById("dxg-filter-toggle");
+if (dxgFilterToggle) {
+  dxgFilterToggle.addEventListener("click", () => {
+    const panel = document.getElementById("filters");
+    panel.classList.toggle("hidden");
+    panel.classList.toggle("block");
+  });
 }
 
 const applyBtn = document.getElementById("apply-filters-btn");
