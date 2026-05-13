@@ -126,7 +126,7 @@
           <h3
             class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2"
           >
-            Generation
+            Original Generation
           </h3>
           <div id="detail-generation" class="text-gray-700 text-sm"></div>
         </div>
@@ -135,7 +135,7 @@
           <h3
             class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2"
           >
-            Habitat
+            Common Habitat
           </h3>
           <p id="detail-habitat" class="text-gray-700 text-sm capitalize"></p>
         </div>
@@ -144,7 +144,7 @@
       <hr class="border-gray-200 mb-6" />
 
       <!-- Evolution -->
-      <div class="grid grid-cols-3 gap-4 items-center mb-8">
+      <div class="grid grid-cols-3 gap-4 items-start mb-8">
         <div
           id="detail-evolves-from"
           class="bg-gray-50 border border-gray-200 rounded-xl p-4 text-center"
@@ -174,10 +174,13 @@
           >
             Evolves To
           </h3>
-          <p class="text-gray-400 text-sm">—</p>
+          <div
+            id="evolves-to-grid"
+            class="flex flex-wrap justify-center gap-2 mt-1"
+          ></div>
+          <p class="text-gray-400 text-sm" id="evolves-to-empty">—</p>
         </div>
       </div>
-
       <hr class="border-gray-200 mb-6" />
 
       <!-- Sabor -->
@@ -188,6 +191,48 @@
           Pokédex Entry
         </h3>
         <p id="detail-flavor" class="text-gray-700 text-sm leading-relaxed"></p>
+      </div>
+
+      <hr class="border-gray-200 mb-6" />
+
+      <!-- Altura, Peso, Habilidades -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+          <h3
+            class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2"
+          >
+            Avg. Height
+          </h3>
+          <p id="detail-height" class="text-gray-700 text-sm"></p>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+          <h3
+            class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2"
+          >
+            Avg. Weight
+          </h3>
+          <p id="detail-weight" class="text-gray-700 text-sm"></p>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+          <h3
+            class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2"
+          >
+            Abilities
+          </h3>
+          <div id="detail-abilities" class="flex flex-col gap-1"></div>
+        </div>
+      </div>
+
+      <hr class="border-gray-200 mb-6" />
+
+      <!-- Stats -->
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 mb-8">
+        <h3
+          class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-4"
+        >
+          Base Stats
+        </h3>
+        <div id="detail-stats" class="flex flex-col gap-3"></div>
       </div>
     </main>
 

@@ -7,6 +7,8 @@
     <!-- Style Sheet Propia y Conexión con Tailwind -->
     <link rel="stylesheet" href="styles.css" />
     <script src="https://cdn.tailwindcss.com"></script>
+   
+
     <!-- Fin Stylesheets -->
   </head>
   <!-- Favicon -->
@@ -97,60 +99,109 @@
     <!-- Filters -------------------------------------------------------------------------->
     <!-- Botón toggle filtros (móvil) -->
     <!-- Filters -->
-<div class="max-w-7xl mx-auto px-4 pt-6 text-gray-700">
-  <div class="filter-bar">
-
-    <div class="filter-dropdown-wrapper">
-      <button id="btn-filter-type" class="filter-dropdown-btn" data-target="panel-filter-type">Type ▾</button>
-      <div class="filter-dropdown-panel" id="panel-filter-type">
-        <div class="panel-label">Type</div>
-        <div class="panel-pills-row" id="filter-types"></div>
-        <div class="panel-footer">
-          <button class="panel-apply-btn" id="apply-filters-btn">Apply</button>
-          <span class="panel-clear-link panel-clear-btn" data-target="filter-types">Clear</span>
+    <div class="max-w-7xl mx-auto px-4 pt-6 text-gray-700">
+      <div class="filter-bar">
+        <div class="filter-dropdown-wrapper">
+          <button
+            id="btn-filter-type"
+            class="filter-dropdown-btn"
+            data-target="panel-filter-type"
+          >
+            Type ▾
+          </button>
+          <div class="filter-dropdown-panel" id="panel-filter-type">
+            <div class="panel-label">Type</div>
+            <div class="panel-pills-row" id="filter-types"></div>
+            <div class="panel-footer">
+              <button class="panel-apply-btn" id="apply-filters-btn">
+                Apply
+              </button>
+              <span
+                class="panel-clear-link panel-clear-btn"
+                data-target="filter-types"
+                >Clear</span
+              >
+            </div>
+          </div>
         </div>
+
+        <div class="filter-dropdown-wrapper">
+          <button
+            id="btn-filter-region"
+            class="filter-dropdown-btn"
+            data-target="panel-filter-region"
+          >
+            Region ▾
+          </button>
+          <div class="filter-dropdown-panel" id="panel-filter-region">
+            <div class="panel-label">Region</div>
+            <div class="panel-pills-row" id="filter-regions"></div>
+            <div class="panel-footer">
+              <button class="panel-apply-btn" id="apply-filters-btn-region">
+                Apply
+              </button>
+              <span
+                class="panel-clear-link panel-clear-btn"
+                data-target="filter-regions"
+                >Clear</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-dropdown-wrapper">
+          <button
+            id="btn-filter-gen"
+            class="filter-dropdown-btn"
+            data-target="panel-filter-gen"
+          >
+            Generation ▾
+          </button>
+          <div class="filter-dropdown-panel" id="panel-filter-gen">
+            <div class="panel-label">Generation</div>
+            <div class="panel-pills-row" id="filter-gens"></div>
+            <div class="panel-footer">
+              <button class="panel-apply-btn" id="apply-filters-btn-gen">
+                Apply
+              </button>
+              <span
+                class="panel-clear-link panel-clear-btn"
+                data-target="filter-gens"
+                >Clear</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-dropdown-wrapper">
+          <button
+            id="btn-filter-evo"
+            class="filter-dropdown-btn"
+            data-target="panel-filter-evo"
+          >
+            Evolutions ▾
+          </button>
+          <div class="filter-dropdown-panel" id="panel-filter-evo">
+            <div class="panel-label">Evolution chain</div>
+            <div class="panel-pills-row" id="filter-evos"></div>
+            <div class="panel-footer">
+              <button class="panel-apply-btn" id="apply-filters-btn-evo">
+                Apply
+              </button>
+              <span
+                class="panel-clear-link panel-clear-btn"
+                data-target="filter-evos"
+                >Clear</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <button id="clear-filters-btn" class="filter-dropdown-btn">
+          Clear all
+        </button>
       </div>
     </div>
-
-    <div class="filter-dropdown-wrapper">
-      <button id="btn-filter-region" class="filter-dropdown-btn" data-target="panel-filter-region">Region ▾</button>
-      <div class="filter-dropdown-panel" id="panel-filter-region">
-        <div class="panel-label">Region</div>
-        <div class="panel-pills-row" id="filter-regions"></div>
-        <div class="panel-footer">
-          <button class="panel-apply-btn" id="apply-filters-btn-region">Apply</button>
-          <span class="panel-clear-link panel-clear-btn" data-target="filter-regions">Clear</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="filter-dropdown-wrapper">
-      <button id="btn-filter-gen" class="filter-dropdown-btn" data-target="panel-filter-gen">Generation ▾</button>
-      <div class="filter-dropdown-panel" id="panel-filter-gen">
-        <div class="panel-label">Generation</div>
-        <div class="panel-pills-row" id="filter-gens"></div>
-        <div class="panel-footer">
-          <button class="panel-apply-btn" id="apply-filters-btn-gen">Apply</button>
-          <span class="panel-clear-link panel-clear-btn" data-target="filter-gens">Clear</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="filter-dropdown-wrapper">
-      <button id="btn-filter-evo" class="filter-dropdown-btn" data-target="panel-filter-evo">Evolutions ▾</button>
-      <div class="filter-dropdown-panel" id="panel-filter-evo">
-        <div class="panel-label">Evolution chain</div>
-        <div class="panel-pills-row" id="filter-evos"></div>
-        <div class="panel-footer">
-          <button class="panel-apply-btn" id="apply-filters-btn-evo">Apply</button>
-          <span class="panel-clear-link panel-clear-btn" data-target="filter-evos">Clear</span>
-        </div>
-      </div>
-    </div>
-
-    <button id="clear-filters-btn" class="filter-dropdown-btn">Clear all</button>
-  </div>
-</div>
 
     <!-- General Gallery ------------------------------------------------------------->
     <section class="max-w-7xl mx-auto px-4 py-8">
@@ -182,6 +233,7 @@
     </button>
 
     <!-- Conexión con js propia -->
+    <script src="pokemon-data.js"></script>
     <script src="scripts.js"></script>
   </body>
 </html>
