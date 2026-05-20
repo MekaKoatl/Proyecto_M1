@@ -4,190 +4,119 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokédex</title>
-    <!-- Style Sheet Propia y Conexión con Tailwind -->
     <link rel="stylesheet" href="styles.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Fin Stylesheets -->
   </head>
-  <!-- Favicon -->
+
+  <!--- Favicon -->
   <link
     href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAx8f/AMzMzAD///8AHR21ACIi4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzMzMzMzIiIzMzMzMzMyIjMzMzMzMzIiMzMzMAMzMyIzMzMAADMzIjMzMAMwAzMiAAAAMAMAAAAAAAAwAwAAAFVVUAMwBVVEVVVVAABVVURVVVVQBVVVRFFVVVVVVVVEUVVVVVVVVURVFVVVVVVURFVRFVVVVUREVVVVVVVUREQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     rel="icon"
     type="image/x-icon"
   />
-  <!-- Color de fondo -->
+
   <body class="bg-white-900 text-white min-h-screen">
-    <!-- Navbar -->
+
+    <!--- Navbar -->
     <nav class="bg-red-600 shadow-lg">
-      <div
-        class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between"
-      >
-        <!-- Logo -->
-        <div class="flex items-center gap-3">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/1280px-Pok%C3%A9_Ball_icon.svg.png"
-            alt="Pokeball"
-            class="w-8 h-8"
-          />
-          <h1
-            class="text-lg sm:text-2xl font-bold tracking-wide whitespace-nowrap"
-          >
-            CRAF Pokédex - Project
-          </h1>
-        </div>
-        <!-- Nav Links (desktop) -->
-        <ul
-          id="nav-links"
-          class="flex items-center gap-1 sm:gap-4 text-sm sm:text-base font-semibold"
-        >
-          <li>
-            <a
-              href="index.html"
-              class="px-3 py-1 rounded hover:bg-red-700 transition"
-              >Home</a
-            >
-          </li>
-          <li>
-            <a
-              href="DXG.html"
-              class="px-3 py-1 rounded hover:bg-red-700 transition"
-              >General Dex Gallery</a
-            >
-          </li>
+      <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        <a href="index.html">
+          <div class="flex items-center gap-3">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/1280px-Pok%C3%A9_Ball_icon.svg.png"
+              alt="Pokeball"
+              class="w-8 h-8"
+            />
+            <h1 class="text-lg sm:text-2xl font-bold tracking-wide whitespace-nowrap">
+              CRAF Pokédex - Project
+            </h1>
+          </div>
+        </a>
+        <ul id="nav-links" class="flex items-center gap-1 sm:gap-4 text-sm sm:text-base font-semibold">
+          <li><a href="index.html" class="px-3 py-1 rounded hover:bg-red-700 transition">Home</a></li>
+          <li><a href="DXG.html" class="px-3 py-1 rounded hover:bg-red-700 transition">General Dex Gallery</a></li>
+          <li><a href="favorites.html" class="px-3 py-1 rounded hover:bg-red-700 transition">Favorites</a></li>
         </ul>
-        <!-- Hamburger (móvil) -->
-        <button id="hamburger-btn" class="text-white text-2xl font-bold px-2">
-          ☰
-        </button>
+        <button id="hamburger-btn" class="text-white text-2xl font-bold px-2">☰</button>
       </div>
-      <!-- Mobile Menu -->
+      <!--- Mobile Menu -->
       <div id="mobile-menu">
-        <a
-          href="index.html"
-          class="text-white font-semibold hover:bg-red-700 px-3 py-2 rounded transition"
-          >Home</a
-        >
-        <a
-          href="DXG.html"
-          class="text-white font-semibold hover:bg-red-700 px-3 py-2 rounded transition"
-          >General Dex Gallery</a
-        >
+        <a href="index.html" class="text-white font-semibold hover:bg-red-700 px-3 py-2 rounded transition">Home</a>
+        <a href="DXG.html" class="text-white font-semibold hover:bg-red-700 px-3 py-2 rounded transition">General Dex Gallery</a>
+        <a href="favorites.html" class="text-white font-semibold hover:bg-red-700 px-3 py-2 rounded transition">Favorites</a>
       </div>
     </nav>
-    <!-- Fin Navbar -->
 
-    <!-- Carousel Section -->
+    <!--- Carousel!!!!!!!!!!!!!! -->
     <section class="py-8 flex justify-center">
       <div class="carousel-wrapper">
         <div id="carousel-track" class="carousel-track"></div>
       </div>
     </section>
 
-    <!-- Search Section -->
+    <!--- Buscador y Filtros -->
     <section class="max-w-7xl mx-auto px-4 py-8">
       <h2 class="text-2xl font-bold text-gray-900 mb-6">Pokémon Search</h2>
 
-      <!-- Filters -->
+      <!--- Filtros -->
       <div class="filter-bar">
         <div class="filter-dropdown-wrapper">
-          <button
-            id="btn-filter-type"
-            class="filter-dropdown-btn"
-            data-target="panel-filter-type"
-          >
-            Type ▾
-          </button>
+          <button id="btn-filter-type" class="filter-dropdown-btn" data-target="panel-filter-type">Type ▾</button>
           <div class="filter-dropdown-panel" id="panel-filter-type">
             <div class="panel-label">Type</div>
             <div class="panel-pills-row" id="filter-types"></div>
             <div class="panel-footer">
-              <button class="panel-apply-btn" id="apply-filters-btn">
-                Apply
-              </button>
-              <span
-                class="panel-clear-link panel-clear-btn"
-                data-target="filter-types"
-                >Clear</span
-              >
+              <button class="panel-apply-btn" id="apply-filters-btn">Apply</button>
+              <span class="panel-clear-link panel-clear-btn" data-target="filter-types">Clear</span>
             </div>
           </div>
         </div>
 
         <div class="filter-dropdown-wrapper">
-          <button
-            id="btn-filter-region"
-            class="filter-dropdown-btn"
-            data-target="panel-filter-region"
-          >
-            Region ▾
-          </button>
+          <button id="btn-filter-region" class="filter-dropdown-btn" data-target="panel-filter-region">Region ▾</button>
           <div class="filter-dropdown-panel" id="panel-filter-region">
             <div class="panel-label">Region</div>
             <div class="panel-pills-row" id="filter-regions"></div>
             <div class="panel-footer">
-              <button class="panel-apply-btn" id="apply-filters-btn-region">
-                Apply
-              </button>
-              <span
-                class="panel-clear-link panel-clear-btn"
-                data-target="filter-regions"
-                >Clear</span
-              >
+              <button class="panel-apply-btn" id="apply-filters-btn-region">Apply</button>
+              <span class="panel-clear-link panel-clear-btn" data-target="filter-regions">Clear</span>
             </div>
           </div>
         </div>
 
         <div class="filter-dropdown-wrapper">
-          <button
-            id="btn-filter-gen"
-            class="filter-dropdown-btn"
-            data-target="panel-filter-gen"
-          >
-            Generation ▾
-          </button>
+          <button id="btn-filter-gen" class="filter-dropdown-btn" data-target="panel-filter-gen">Generation ▾</button>
           <div class="filter-dropdown-panel" id="panel-filter-gen">
             <div class="panel-label">Generation</div>
             <div class="panel-pills-row" id="filter-gens"></div>
             <div class="panel-footer">
-              <button class="panel-apply-btn" id="apply-filters-btn-gen">
-                Apply
-              </button>
-              <span
-                class="panel-clear-link panel-clear-btn"
-                data-target="filter-gens"
-                >Clear</span
-              >
+              <button class="panel-apply-btn" id="apply-filters-btn-gen">Apply</button>
+              <span class="panel-clear-link panel-clear-btn" data-target="filter-gens">Clear</span>
             </div>
           </div>
         </div>
 
-        <button id="clear-filters-btn" class="filter-dropdown-btn">
-          Clear all
-        </button>
+        <button id="clear-filters-btn" class="filter-dropdown-btn">Clear all</button>
       </div>
 
-      <!-- Search + Grid -->
+      <!--- Buscador por nombre -->
       <input
         id="pokemon-search"
         type="text"
         placeholder="Search Pokémon by name..."
         class="w-full px-4 py-2 border border-gray-300 rounded-full text-gray-700 text-sm focus:outline-none focus:border-red-400 mb-4"
       />
-      <div
-        id="dex-grid"
-        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
-      ></div>
+
+      <!--- Grid de Pokemon -->
+      <div id="dex-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
     </section>
 
+    <!--- Back to top button -->
     <button
       id="back-to-top"
       class="fixed bottom-6 right-6 z-50 w-10 h-10 bg-red-600 text-white rounded-full shadow-lg items-center justify-center text-xl hover:bg-red-700 transition hidden"
-    >
-      ↑
-    </button>
+    >↑</button>
 
-    <!-- Conexión con js propia -->
     <script src="pokemon-data.js"></script>
     <script src="scripts.js"></script>
   </body>

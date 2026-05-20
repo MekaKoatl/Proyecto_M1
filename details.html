@@ -4,105 +4,67 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokédex</title>
-    <!-- Style Sheet Propia y Conexión con Tailwind -->
     <link rel="stylesheet" href="styles.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fin Stylesheets -->
   </head>
-  <!-- Favicon -->
+
+  <!--- Favicon -->
   <link
     href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAx8f/AMzMzAD///8AHR21ACIi4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzMzMzMzIiIzMzMzMzMyIjMzMzMzMzIiMzMzMAMzMyIzMzMAADMzIjMzMAMwAzMiAAAAMAMAAAAAAAAwAwAAAFVVUAMwBVVEVVVVAABVVURVVVVQBVVVRFFVVVVVVVVEUVVVVVVVVURVFVVVVVVURFVRFVVVVUREVVVVVVVUREQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     rel="icon"
     type="image/x-icon"
   />
-  <!-- Color de fondo -->
+
   <body class="bg-white-900 text-white min-h-screen">
-    <!-- Navbar -->
+
+    <!--- Navbar -->
     <nav class="bg-red-600 shadow-lg">
-      <div
-        class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between"
-      >
-        <!-- Logo -->
-        <div class="flex items-center gap-3">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/1280px-Pok%C3%A9_Ball_icon.svg.png"
-            alt="Pokeball"
-            class="w-8 h-8"
-          />
-          <h1
-            class="text-lg sm:text-2xl font-bold tracking-wide whitespace-nowrap"
-          >
-            CRAF Pokédex - Project
-          </h1>
-        </div>
-        <!-- Nav Links (desktop) -->
-        <ul
-          id="nav-links"
-          class="flex items-center gap-1 sm:gap-4 text-sm sm:text-base font-semibold"
-        >
-          <li>
-            <a
-              href="index.html"
-              class="px-3 py-1 rounded hover:bg-red-700 transition"
-              >Home</a
-            >
-          </li>
-          <li>
-            <a
-              href="DXG.html"
-              class="px-3 py-1 rounded hover:bg-red-700 transition"
-              >General Dex Gallery</a
-            >
-          </li>
+      <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        <a href="index.html">
+          <div class="flex items-center gap-3">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/1280px-Pok%C3%A9_Ball_icon.svg.png"
+              alt="Pokeball"
+              class="w-8 h-8"
+            />
+            <h1 class="text-lg sm:text-2xl font-bold tracking-wide whitespace-nowrap">
+              CRAF Pokédex - Project
+            </h1>
+          </div>
+        </a>
+        <ul id="nav-links" class="flex items-center gap-1 sm:gap-4 text-sm sm:text-base font-semibold">
+          <li><a href="index.html" class="px-3 py-1 rounded hover:bg-red-700 transition">Home</a></li>
+          <li><a href="DXG.html" class="px-3 py-1 rounded hover:bg-red-700 transition">General Dex Gallery</a></li>
+          <li><a href="favorites.html" class="px-3 py-1 rounded hover:bg-red-700 transition">Favorites</a></li>
         </ul>
-        <!-- Hamburger (móvil) -->
-        <button id="hamburger-btn" class="text-white text-2xl font-bold px-2">
-          ☰
-        </button>
+        <button id="hamburger-btn" class="text-white text-2xl font-bold px-2">☰</button>
       </div>
-      <!-- Mobile Menu -->
+      <!--- Mobile Menu -->
       <div id="mobile-menu">
-        <a
-          href="index.html"
-          class="text-white font-semibold hover:bg-red-700 px-3 py-2 rounded transition"
-          >Home</a
-        >
-        <a
-          href="DXG.html"
-          class="text-white font-semibold hover:bg-red-700 px-3 py-2 rounded transition"
-          >General Dex Gallery</a
-        >
+        <a href="index.html" class="text-white font-semibold hover:bg-red-700 px-3 py-2 rounded transition">Home</a>
+        <a href="DXG.html" class="text-white font-semibold hover:bg-red-700 px-3 py-2 rounded transition">General Dex Gallery</a>
+        <a href="favorites.html" class="text-white font-semibold hover:bg-red-700 px-3 py-2 rounded transition">Favorites</a>
       </div>
     </nav>
-    <!-- Fin Navbar -->
 
-    <!-- Main Content -->
     <main class="max-w-4xl mx-auto px-4 py-8">
-      <!-- Esto carga la info -->
+
+      <!--- Cabecera: nombre, genus y botón favorito -->
       <div class="flex items-start gap-6 mb-6">
-        <button
-          onclick="history.back()"
-          class="mt-2 text-gray-500 hover:text-red-600 transition font-semibold text-sm"
-        >
+        <button onclick="history.back()" class="mt-2 text-gray-500 hover:text-red-600 transition font-semibold text-sm">
           ← Return
         </button>
-        <div>
+        <div class="flex-1">
           <h1 id="detail-name" class="text-3xl font-bold text-gray-900"></h1>
           <p id="detail-genus" class="text-lg text-gray-500 mt-1"></p>
         </div>
+        <button id="detail-fav-btn" class="mt-2 fav-btn" style="position:static;font-size:1.5rem;" title="Favorite">♥</button>
       </div>
 
-      <!-- Sprites -->
+      <!--- Sprite principal y galería de sprites -->
       <div class="flex flex-col sm:flex-row gap-4 mb-8">
-        <div
-          class="flex-1 bg-gray-100 rounded-xl flex items-center justify-center sm:min-h-[300px] min-h-[200px]"
-        >
-          <img
-            id="sprite-main"
-            src=""
-            alt=""
-            class="w-48 h-48 sm:w-64 sm:h-64 object-contain mx-auto"
-          />
+        <div class="flex-1 bg-gray-100 rounded-xl flex items-center justify-center sm:min-h-[300px] min-h-[200px]">
+          <img id="sprite-main" src="" alt="" class="w-48 h-48 sm:w-64 sm:h-64 object-contain mx-auto" />
         </div>
         <div class="grid grid-cols-3 gap-2 content-start">
           <div id="sprite-gallery" class="contents"></div>
@@ -111,132 +73,84 @@
 
       <hr class="border-gray-200 mb-6" />
 
-      <!-- Types / Gen / Habitat -->
+      <!--- Tipo, Generación y Habitat -->
       <div class="grid grid-cols-3 gap-4 mb-8">
         <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
-          <h3
-            class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2"
-          >
-            Type
-          </h3>
+          <h3 class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2">Type</h3>
           <div id="detail-types" class="flex flex-wrap gap-2"></div>
         </div>
-
         <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
-          <h3
-            class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2"
-          >
-            Original Generation
-          </h3>
+          <h3 class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2">Original Generation</h3>
           <div id="detail-generation" class="text-gray-700 text-sm"></div>
         </div>
-
         <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
-          <h3
-            class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2"
-          >
-            Common Habitat
-          </h3>
+          <h3 class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2">Common Habitat</h3>
           <p id="detail-habitat" class="text-gray-700 text-sm capitalize"></p>
         </div>
       </div>
 
       <hr class="border-gray-200 mb-6" />
 
-      <!-- Evolution -->
-      <div class="grid grid-cols-3 gap-4 items-start mb-8">
-        <div
-          id="detail-evolves-from"
-          class="bg-gray-50 border border-gray-200 rounded-xl p-4 text-center"
-        >
-          <h3
-            class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2"
-          >
-            Evolves From
-          </h3>
-          <p class="text-gray-400 text-sm">—</p>
-        </div>
-
-        <div class="flex flex-col items-center">
-          <img id="sprite-evo" src="" alt="" class="w-24 h-24 object-contain" />
-          <p
-            id="detail-evo-name"
-            class="text-sm font-semibold text-gray-700 mt-1"
-          ></p>
-        </div>
-
-        <div
-          id="detail-evolves-to"
-          class="bg-gray-50 border border-gray-200 rounded-xl p-4 text-center"
-        >
-          <h3
-            class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2"
-          >
-            Evolves To
-          </h3>
-          <div
-            id="evolves-to-grid"
-            class="flex flex-wrap justify-center gap-2 mt-1"
-          ></div>
-          <p class="text-gray-400 text-sm" id="evolves-to-empty">—</p>
-        </div>
-      </div>
+      <!--- Cadena Evolutiva -->
+      <div id="evo-chain" class="evo-chain-wrapper mb-8"></div>
       <hr class="border-gray-200 mb-6" />
 
-      <!-- Sabor -->
+      <!--- Pokédex Entry -->
       <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 mb-8">
-        <h3
-          class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-3"
-        >
-          Pokédex Entry
-        </h3>
+        <h3 class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-3">Pokédex Entry</h3>
         <p id="detail-flavor" class="text-gray-700 text-sm leading-relaxed"></p>
       </div>
 
       <hr class="border-gray-200 mb-6" />
 
-      <!-- Altura, Peso, Habilidades -->
+      <!--- Altura, Peso y Habilidades -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
-          <h3
-            class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2"
-          >
-            Avg. Height
-          </h3>
+          <h3 class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2">Avg. Height</h3>
           <p id="detail-height" class="text-gray-700 text-sm"></p>
         </div>
         <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
-          <h3
-            class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2"
-          >
-            Avg. Weight
-          </h3>
+          <h3 class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2">Avg. Weight</h3>
           <p id="detail-weight" class="text-gray-700 text-sm"></p>
         </div>
         <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
-          <h3
-            class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2"
-          >
-            Abilities
-          </h3>
+          <h3 class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2">Abilities</h3>
           <div id="detail-abilities" class="flex flex-col gap-1"></div>
         </div>
       </div>
 
       <hr class="border-gray-200 mb-6" />
 
-      <!-- Stats -->
+      <!--- Formas Regionales (oculto si no aplica) -->
+      <div id="regional-section" style="display: none">
+        <hr class="border-gray-200 mb-6" />
+        <div class="mb-8">
+          <h3 class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-4">Regional Forms</h3>
+          <div id="regional-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4"></div>
+        </div>
+      </div>
+
+      <hr class="border-gray-200 mb-6" />
+
+      <!--- Stats Base -->
       <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 mb-8">
-        <h3
-          class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-4"
-        >
-          Base Stats
-        </h3>
+        <h3 class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-4">Base Stats</h3>
         <div id="detail-stats" class="flex flex-col gap-3"></div>
       </div>
+
+      <hr class="border-gray-200 mb-6" />
+
+      <!--- Formas Alternativas Mega/Gmax (oculto si no aplica) -->
+      <div id="forms-section" style="display: none">
+        <hr class="border-gray-200 mb-6" />
+        <div class="mb-8">
+          <h3 class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-4">Alternative Forms</h3>
+          <div id="forms-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        </div>
+      </div>
+
     </main>
 
-    <!-- Conexión con js propia -->
     <script src="scripts.js"></script>
   </body>
 </html>

@@ -1,5 +1,7 @@
-/* -------------------------------------------------------------------------------- index Carousel & Search ----------------------------------------------------------------- */
+/* ── Imports ───────────────────────────── */
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
+/* ── CAROUSEL PRINCIPAL ───────────────────────────── */
 .carousel-wrapper {
   width: 100%;
   max-width: 1080px;
@@ -39,7 +41,6 @@
   transform: scale(1);
   background-color: #ffffff;
   border: 4px double #ef4444;
-  /* box-shadow: 0 10px 15px rgba(0,0,0,0.2); */
 }
 
 @media (min-width: 640px) {
@@ -67,41 +68,29 @@
   margin-top: 0.5rem;
 }
 
-.index-filter-dropdown.open {
-  display: flex;
-}
-
-.index-filter-btn {
-  cursor: pointer;
-  background: none;
-  border: none;
-  color: #374151;
-}
-
-.index-filter-btn:hover {
-  color: #ef4444;
-}
-
-/* @media (min-width: 640px) {
+/* Carousel mobile*/
+@media (max-width: 639px) {
+  .carousel-wrapper {
+    display: flex;
+    justify-content: center;
+    overflow: visible;
+    height: 220px;
+    align-items: center;
+  }
+  .carousel-track {
+    justify-content: center;
+  }
   .carousel-card {
-    flex: 0 0 160px;
-    height: 160px;
+    display: none;
   }
   .carousel-card.center {
-    flex: 0 0 210px;
-    height: 210px;
+    display: flex;
+    flex: 0 0 200px;
+    height: 200px;
   }
-  .carousel-card img {
-    width: 100px;
-    height: 100px;
-  }
-  .carousel-card.center img {
-    width: 130px;
-    height: 130px;
-  }
-} */
+}
 
-/* -------------------------------------------------------------------------------- DXG - General Gallery ----------------------------------------------------------------- */
+/* ── DEX CARD GENERAL ──────── */
 .dex-card {
   display: flex;
   flex-direction: column;
@@ -142,18 +131,16 @@
   font-weight: 400;
   color: #11182798;
   margin-top: 0.4rem;
-  /* align-self: flex-start;
-  padding-left: 0.5rem; */
 }
 
 .dex-card-types {
   display: flex;
-  /* gap: 0.3rem; */
   margin-top: 0.4rem;
   flex-wrap: wrap;
   justify-content: center;
 }
 
+/* ── TYPE BADGES ─────────────────────────────────────── */
 .type-badge {
   font-size: 0.65rem;
   font-weight: 600;
@@ -161,9 +148,12 @@
   border-radius: 0px;
   color: rgb(255, 255, 255);
   text-transform: capitalize;
+  min-width: 50px;
+  text-align: center;
 }
 
-/* Tipos de Pokemon */
+/* ── DEX CARD GENERA - tIPOSL ──────── */
+
 .type-fire {
   background-color: #f08030;
 }
@@ -222,51 +212,43 @@
   background-color: #a8a878;
 }
 
-/* Filters */
-#filters label {
-  user-select: none;
+/* ── FORM BADGES (M/R/G) ────── */
+.form-badges {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  z-index: 10;
 }
 
-#filters input[type="checkbox"] {
-  accent-color: #ef4444;
-  cursor: pointer;
+.form-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 5px;
+  border-radius: 4px;
+  line-height: 1.4;
 }
 
-/* ── RESPONSIVE ─────────────────────────────────────────────────────────────────────────────────────────────── */
-
-/* Carousel*/
-@media (max-width: 639px) {
-  .carousel-wrapper {
-    display: flex;
-    justify-content: center;
-    overflow: visible;
-    height: 220px; /* altura fija, nunca colapsa */
-    align-items: center;
-  }
-
-  .carousel-track {
-    justify-content: center;
-  }
-
-  .carousel-card {
-    display: none;
-  }
-
-  .carousel-card.center {
-    display: flex;
-    flex: 0 0 200px;
-    height: 200px;
-  }
+.form-badge-M {
+  background: #b5d4f4;
+  color: #0c447c;
+}
+.form-badge-R {
+  background: #c0dd97;
+  color: #27500a;
+}
+.form-badge-B {
+  background: #f4c0d1;
+  color: #72243e;
+}
+.form-badge-G {
+  background: #fac775;
+  color: #633806;
 }
 
-/* Filtros DXG: apilados en móvil */
-@media (max-width: 767px) {
-  #filters .flex {
-    flex-direction: column;
-  }
-}
-
-/* ── HAMBURGER MENU ─────────────────────────────────── */
+/* ── HAMBURGER / MOBILE MENU ─────────────────────────── */
 #mobile-menu {
   display: none;
   flex-direction: column;
@@ -293,7 +275,7 @@
   }
 }
 
-/* ── FILTER PILLS ───────────────────────────────────── */
+/* ── FILTRO PILLS ─────────────────────────────────────── */
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
@@ -493,12 +475,7 @@
   text-decoration: underline;
 }
 
-.type-badge {
-  min-width: 50px;
-  text-align: center;
-}
-
-/* ── LOADING SPINNER ─────────────────────────────────── */
+/* ── LOADING ANIMACIÓN ─────────────────────────────────── */
 .loading-spinner {
   display: flex;
   flex-direction: column;
@@ -570,38 +547,298 @@
   font-weight: 600;
 }
 
-/* ── FORM BADGES ─────────────────────────────────── */
-.form-badges {
-  position: absolute;
-  top: 8px;
-  right: 8px;
+/* ── CADENA EVOLUTIVA DE DETALLES ─────────────────── */
+.evo-chain-wrapper {
   display: flex;
   flex-direction: row;
-  gap: 3px;
-  z-index: 10;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+  padding: 1rem 0;
 }
 
-.form-badge {
-  font-size: 10px;
+.evo-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: #f9fafb;
+  border: 2px solid #e5e7eb;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+  min-width: 90px;
+}
+
+.evo-node:not(.evo-node-current):hover {
+  border-color: #fca5a5;
+  background: #fff;
+}
+
+.evo-node-current {
+  border: 2px solid #ef4444;
+  background: #fff;
+}
+
+.evo-node-img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+.evo-node-name {
+  font-size: 0.8rem;
   font-weight: 600;
-  padding: 2px 5px;
-  border-radius: 4px;
-  line-height: 1.4;
+  color: #111827;
+  text-align: center;
+}
+.evo-node-cond {
+  font-size: 0.7rem;
+  color: #9ca3af;
+  text-align: center;
+}
+.evo-no-evo {
+  color: #9ca3af;
+  font-size: 0.875rem;
+  text-align: center;
+  width: 100%;
 }
 
-.form-badge-M {
+/* Flecha (desktop) */
+.evo-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 50px;
+  position: relative;
+}
+
+.evo-arrow-tip {
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid #d1d5db;
+  margin-top: -2px;
+  align-self: flex-end;
+}
+
+.evo-arrow-label {
+  font-size: 0.65rem;
+  color: #9ca3af;
+  white-space: nowrap;
+  position: absolute;
+  top: calc(100% + 2px);
+}
+
+.evo-branch-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+/* Cadena evolutiva mobil*/
+@media (max-width: 639px) {
+  .evo-chain-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .evo-arrow {
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 0;
+    gap: 0;
+  }
+
+  .evo-arrow-tip {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 8px solid #d1d5db;
+    border-bottom: none;
+    margin-top: 0;
+    align-self: center;
+  }
+
+  .evo-arrow-label {
+    position: static;
+    margin-top: 2px;
+  }
+  .evo-branch-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ── FORMAS ALTERNATIVAS Mega/Gmax ────── */
+.form-alt-card {
+  background: #ffffff;
+  border: 0.5px solid #e5e7eb;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.form-alt-card.form-alt-card-open {
+  border-color: #d1d5db;
+}
+
+.form-alt-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 14px 10px;
+}
+
+.form-alt-tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 999px;
+}
+.form-alt-tag-mega {
   background: #b5d4f4;
   color: #0c447c;
 }
-.form-badge-R {
-  background: #c0dd97;
-  color: #27500a;
-}
-.form-badge-B {
+.form-alt-tag-gmax {
   background: #f4c0d1;
   color: #72243e;
 }
-.form-badge-G {
-  background: #fac775;
-  color: #633806;
+.form-alt-item {
+  font-size: 11px;
+  color: #6b7280;
+  background: #f3f4f6;
+  border-radius: 6px;
+  padding: 3px 8px;
+}
+.form-alt-sprite {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+.form-alt-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+  text-align: center;
+}
+.form-alt-types {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.form-alt-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  border-top: 0.5px solid #e5e7eb;
+  font-size: 12px;
+  color: #6b7280;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+.form-alt-toggle:hover {
+  background: #f9fafb;
+}
+.form-alt-chevron {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.form-alt-accordion {
+  padding: 12px 14px;
+  border-top: 0.5px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.form-alt-acc-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #9ca3af;
+  margin-bottom: 6px;
+}
+
+.form-alt-ability {
+  font-size: 11px;
+  background: #ffffff;
+  border: 0.5px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 3px 8px;
+  color: #374151;
+  display: inline-block;
+  text-transform: capitalize;
+}
+
+.form-alt-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.form-alt-stat-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.form-alt-stat-name {
+  font-size: 10px;
+  font-weight: 600;
+  color: #9ca3af;
+  width: 48px;
+  flex-shrink: 0;
+}
+.form-alt-stat-val {
+  font-size: 10px;
+  font-weight: 600;
+  color: #374151;
+  width: 24px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.form-alt-stat-bg {
+  flex: 1;
+  height: 4px;
+  background: #e5e7eb;
+  border-radius: 2px;
+}
+.form-alt-stat-bar {
+  height: 4px;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+/* ── FAVORITOS ───────────────────────────────────────── */
+.fav-btn {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  /* font-family: "Press Start 2P"; */
+  color: #d1d5db;
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    transform 0.15s;
+  line-height: 1;
+  padding: 2px;
+  z-index: 10;
+}
+
+.fav-btn:hover {
+  color: #ef4444;
+  transform: scale(1.2);
+}
+.fav-btn.fav-active {
+  color: #ef4444;
 }
