@@ -35,7 +35,7 @@
         <ul id="nav-links" class="flex items-center gap-1 sm:gap-4 text-sm sm:text-base font-semibold">
           <li><a href="index.html" class="px-3 py-1 rounded hover:bg-red-700 transition">Home</a></li>
           <li><a href="DXG.html" class="px-3 py-1 rounded hover:bg-red-700 transition">General Dex Gallery</a></li>
-          <li><a href="favorites.html" class="px-3 py-1 rounded bg-red-700 transition">Favorites</a></li>
+          <li><a href="favorites.html" class="px-3 py-1 rounded hover:bg-red-700 transition">Favorites</a></li>
         </ul>
         <button id="hamburger-btn" class="text-white text-2xl font-bold px-2">☰</button>
       </div>
@@ -47,10 +47,14 @@
       </div>
     </nav>
 
-    <!--- Carousel!!!!!!!!!!!!!! -->
+    <!--- Carousel -->
     <section class="py-8 flex justify-center">
-      <div class="carousel-wrapper">
-        <div id="carousel-track" class="carousel-track"></div>
+      <div class="carousel-section w-full max-w-5xl px-4">
+        <button id="carousel-prev" class="carousel-arrow">‹</button>
+        <div class="carousel-wrapper">
+          <div id="carousel-track" class="carousel-track"></div>
+        </div>
+        <button id="carousel-next" class="carousel-arrow">›</button>
       </div>
     </section>
 

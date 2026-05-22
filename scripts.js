@@ -24,8 +24,12 @@ async function getEvolutionChain(url) {
 
 ///--- Fetch flavour text
 function getEnglishFlavorText(species) {
-  const entry = species.flavor_text_entries.find((e) => e.language.name === "en");
-  return entry ? entry.flavor_text.replace(/\f|\n/g, " ") : "No description available.";
+  const entry = species.flavor_text_entries.find(
+    (e) => e.language.name === "en",
+  );
+  return entry
+    ? entry.flavor_text.replace(/\f|\n/g, " ")
+    : "No description available.";
 }
 
 // Fetch genus ('Pokemon Rata')
@@ -65,10 +69,10 @@ function getRandomPokemonId() {
   return Math.floor(Math.random() * TOTAL_POKEMON) + 1;
 }
 
-let allLoadedPokemon = [];  
-let speciesCache = {};      
-let evoChainCache = {};     
-let allPokemonNames = [];   // Lista completa de nombres (base + regionales)
+let allLoadedPokemon = [];
+let speciesCache = {};
+let evoChainCache = {};
+let allPokemonNames = []; // Lista completa de nombres (base + regionales)
 
 // Fetch por ID o nombre
 async function fetchPokemonById(id) {
@@ -101,20 +105,21 @@ async function loadAllPokemonNames() {
   allPokemonNames = [...baseNames, ...regionalNames];
 }
 
-///--- Carousel!!!!!!!!!!!!!!!!!!!!
+///--- Carousel (index.html)
 const VISIBLE_COUNT = 5;
 const CENTER_INDEX = Math.floor(VISIBLE_COUNT / 2);
 let carouselPool = [];
 let poolIndex = 0;
 let isSliding = false;
+let cachedCardWidth = 0;
 
-///--- Generador de Carta del Carousel
 function buildCard(pokemon, isCenter = false) {
   const card = document.createElement("div");
   card.className = `carousel-card${isCenter ? " center" : ""}`;
   const staticSprite = pokemon.sprites.front_default;
   const animatedSprite =
-    pokemon.sprites.versions?.["generation-v"]?.["black-white"]?.animated?.front_default || staticSprite;
+    pokemon.sprites.versions?.["generation-v"]?.["black-white"]?.animated
+      ?.front_default || staticSprite;
   card.innerHTML = `
     <img src="${isCenter ? animatedSprite : staticSprite}"
       data-static="${staticSprite}" data-animated="${animatedSprite}"
@@ -129,11 +134,18 @@ function buildCard(pokemon, isCenter = false) {
 }
 
 function getCardWidth() {
+  if (cachedCardWidth) return cachedCardWidth;
   const track = document.getElementById("carousel-track");
   const card = track.querySelector(".carousel-card");
   const gap = window.innerWidth >= 640 ? 16 : 12;
-  return card ? card.offsetWidth + gap : 0;
+  cachedCardWidth = card ? card.offsetWidth + gap : 0;
+  return cachedCardWidth;
 }
+
+// Recalcular ancho al cambiar tamaño de ventana
+window.addEventListener("resize", () => {
+  cachedCardWidth = 0;
+});
 
 async function initCarousel() {
   const ids = Array.from({ length: POOL_SIZE }, getRandomPokemonId);
@@ -147,37 +159,70 @@ async function initCarousel() {
   poolIndex = VISIBLE_COUNT;
 }
 
+function applyCardStates(track) {
+  Array.from(track.children).forEach((card, i) => {
+    const isCenter = i === CENTER_INDEX;
+    card.classList.toggle("center", isCenter);
+    // Opacidad escalonada según distancia al centro
+    const dist = Math.abs(i - CENTER_INDEX);
+    card.style.opacity = dist === 0 ? "1" : dist === 1 ? "0.5" : "0.2";
+    const img = card.querySelector("img");
+    if (img) img.src = isCenter ? img.dataset.animated : img.dataset.static;
+  });
+}
+
 async function slideNext() {
   if (isSliding) return;
   isSliding = true;
   const track = document.getElementById("carousel-track");
-  const centerCard = track.children[CENTER_INDEX];
-  centerCard.classList.remove("center");
-  await new Promise((r) => setTimeout(r, 500));
   const nextPokemon = carouselPool[poolIndex % carouselPool.length];
   poolIndex++;
   const newCard = buildCard(nextPokemon, false);
   track.appendChild(newCard);
   const slideDistance = getCardWidth();
-  track.style.transition = "transform 0.5s ease";
+  track.style.transition = "transform 0.4s ease";
   track.style.transform = `translateX(-${slideDistance}px)`;
   setTimeout(() => {
     track.style.transition = "none";
     track.style.transform = "translateX(0)";
     track.children[0].remove();
-    Array.from(track.children).forEach((card, i) => {
-      card.classList.toggle("center", i === CENTER_INDEX);
-      const img = card.querySelector("img");
-      if (img) img.src = i === CENTER_INDEX ? img.dataset.animated : img.dataset.static;
-    });
+    applyCardStates(track);
     isSliding = false;
-  }, 500);
+  }, 400);
+}
+
+async function slidePrev() {
+  if (isSliding) return;
+  isSliding = true;
+  const track = document.getElementById("carousel-track");
+  // Retroceder en el pool
+  poolIndex =
+    (poolIndex - VISIBLE_COUNT - 1 + carouselPool.length) % carouselPool.length;
+  const prevPokemon = carouselPool[poolIndex % carouselPool.length];
+  const newCard = buildCard(prevPokemon, false);
+  track.insertBefore(newCard, track.firstChild);
+  const slideDistance = getCardWidth();
+  track.style.transition = "none";
+  track.style.transform = `translateX(-${slideDistance}px)`;
+  // Forzar reflow
+  track.offsetHeight;
+  track.style.transition = "transform 0.4s ease";
+  track.style.transform = "translateX(0)";
+  setTimeout(() => {
+    track.lastChild.remove();
+    poolIndex = (poolIndex + VISIBLE_COUNT) % carouselPool.length;
+    applyCardStates(track);
+    isSliding = false;
+  }, 400);
 }
 
 ///--- Sistema de Favoritos (localStorage!!!!!!!)
 function getFavorites() {
-  try { return JSON.parse(localStorage.getItem("craf-favorites") || "[]"); }
-  catch { return []; }
+  try {
+    return JSON.parse(localStorage.getItem("craf-favorites") || "[]");
+  } catch {
+    return [];
+  }
 }
 
 function saveFavorites(favs) {
@@ -203,19 +248,26 @@ function buildDexCard(pokemon) {
   const types = pokemon.types.map((t) => t.type.name);
   const staticSprite = pokemon.sprites.front_default;
   const animatedSprite =
-    pokemon.sprites.versions?.["generation-v"]?.["black-white"]?.animated?.front_default || staticSprite;
+    pokemon.sprites.versions?.["generation-v"]?.["black-white"]?.animated
+      ?.front_default || staticSprite;
   const card = document.createElement("div");
   card.className = "dex-card";
   const dataEntry =
-    typeof POKEMON_DATA !== "undefined" ? POKEMON_DATA.find((e) => e.id === pokemon.id) : null;
+    typeof POKEMON_DATA !== "undefined"
+      ? POKEMON_DATA.find((e) => e.id === pokemon.id)
+      : null;
   const forms = dataEntry?.forms ?? [];
   card.dataset.id = pokemon.id;
   const displayName = getRegionalDisplayName(pokemon.name);
   const fav = isFavorite(pokemon.id);
   card.innerHTML = `
-    ${forms.length ? `<div class="form-badges">
+    ${
+      forms.length
+        ? `<div class="form-badges">
       ${forms.map((f) => `<span class="form-badge form-badge-${f}">${f}</span>`).join("")}
-    </div>` : ""}
+    </div>`
+        : ""
+    }
     <span class="dex-card-dexnum">#${pokemon.id}</span>
     <img src="${staticSprite}" data-static="${staticSprite}" data-animated="${animatedSprite}" alt="${pokemon.name}" />
     <span class="dex-card-name">${displayName}</span>
@@ -226,13 +278,18 @@ function buildDexCard(pokemon) {
     <button class="fav-btn${fav ? " fav-active" : ""}" data-id="${pokemon.id}" title="Favorite">♥</button>
   `;
   const img = card.querySelector("img");
-  card.addEventListener("mouseenter", () => { img.src = img.dataset.animated; });
-  card.addEventListener("mouseleave", () => { img.src = img.dataset.static; });
-  card.addEventListener("click", () => { window.location.href = `details.html?id=${pokemon.id}`; });
+  card.addEventListener("mouseenter", () => {
+    img.src = img.dataset.animated;
+  });
+  card.addEventListener("mouseleave", () => {
+    img.src = img.dataset.static;
+  });
+  card.addEventListener("click", () => {
+    window.location.href = `details.html?id=${pokemon.id}`;
+  });
   const favBtn = card.querySelector(".fav-btn");
   favBtn.addEventListener("click", (e) => {
     e.stopPropagation();
-    e.preventDefault();
     const added = toggleFavorite(pokemon.id);
     favBtn.classList.toggle("fav-active", added);
   });
@@ -247,12 +304,17 @@ let dexOffset = 1;
 async function loadDexRows() {
   const grid = document.getElementById("dex-grid");
   if (!grid) return;
-  const ids = Array.from({ length: ROWS_PER_LOAD * COLS }, (_, i) => dexOffset + i);
+  const ids = Array.from(
+    { length: ROWS_PER_LOAD * COLS },
+    (_, i) => dexOffset + i,
+  );
   dexOffset += ROWS_PER_LOAD * COLS;
   const pokemons = await Promise.all(ids.map(fetchPokemonById));
   const valid = pokemons.filter(Boolean);
   const regionalData =
-    typeof POKEMON_DATA !== "undefined" ? POKEMON_DATA.filter((e) => e.isRegional) : [];
+    typeof POKEMON_DATA !== "undefined"
+      ? POKEMON_DATA.filter((e) => e.isRegional)
+      : [];
   const expanded = [];
   for (const p of valid) {
     expanded.push(p);
@@ -272,8 +334,37 @@ async function loadDexRows() {
 
 ///--- Filtros
 function initFilters() {
-  const types = ["normal","fire","water","grass","electric","ice","fighting","poison","ground","flying","psychic","bug","rock","ghost","dragon","dark","steel","fairy"];
-  const regions = ["Kanto","Johto","Hoenn","Sinnoh","Unova","Kalos","Alola","Galar","Paldea"];
+  const types = [
+    "normal",
+    "fire",
+    "water",
+    "grass",
+    "electric",
+    "ice",
+    "fighting",
+    "poison",
+    "ground",
+    "flying",
+    "psychic",
+    "bug",
+    "rock",
+    "ghost",
+    "dragon",
+    "dark",
+    "steel",
+    "fairy",
+  ];
+  const regions = [
+    "Kanto",
+    "Johto",
+    "Hoenn",
+    "Sinnoh",
+    "Unova",
+    "Kalos",
+    "Alola",
+    "Galar",
+    "Paldea",
+  ];
   const gens = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const evos = [
     { val: 1, label: "No evolutions" },
@@ -312,15 +403,47 @@ function initFilters() {
     };
     const btn = document.getElementById(panelMap[containerId]);
     if (!btn) return;
-    const hasActive = document.querySelectorAll(`#${containerId} .filter-pill.active`).length > 0;
+    const hasActive =
+      document.querySelectorAll(`#${containerId} .filter-pill.active`).length >
+      0;
     btn.classList.toggle("filter-btn-active", hasActive);
   }
 
-  makePills("filter-types", types, (t) => t, (t) => t, true);
-  makePills("filter-regions", regions, (r) => r, (r) => r.toLowerCase(), false);
-  makePills("filter-gens", gens, (g) => `Gen ${g}`, (g) => g, false);
-  makePills("filter-evos", evos, (e) => e.label, (e) => e.val, false);
-  makePills("filter-forms", formTypes, (f) => f.label, (f) => f.val, false);
+  makePills(
+    "filter-types",
+    types,
+    (t) => t,
+    (t) => t,
+    true,
+  );
+  makePills(
+    "filter-regions",
+    regions,
+    (r) => r,
+    (r) => r.toLowerCase(),
+    false,
+  );
+  makePills(
+    "filter-gens",
+    gens,
+    (g) => `Gen ${g}`,
+    (g) => g,
+    false,
+  );
+  makePills(
+    "filter-evos",
+    evos,
+    (e) => e.label,
+    (e) => e.val,
+    false,
+  );
+  makePills(
+    "filter-forms",
+    formTypes,
+    (f) => f.label,
+    (f) => f.val,
+    false,
+  );
 
   document.querySelectorAll(".filter-dropdown-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
@@ -335,8 +458,11 @@ function initFilters() {
   });
 
   document.addEventListener("click", (e) => {
-    if (e.target.closest("#hamburger-btn") || e.target.closest("#mobile-menu")) return;
-    document.querySelectorAll(".filter-dropdown-panel").forEach((p) => p.classList.remove("open"));
+    if (e.target.closest("#hamburger-btn") || e.target.closest("#mobile-menu"))
+      return;
+    document
+      .querySelectorAll(".filter-dropdown-panel")
+      .forEach((p) => p.classList.remove("open"));
   });
 
   document.querySelectorAll(".filter-dropdown-panel").forEach((p) => {
@@ -346,20 +472,28 @@ function initFilters() {
   document.querySelectorAll(".panel-clear-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       const targetId = btn.dataset.target;
-      document.querySelectorAll(`#${targetId} .filter-pill.active`).forEach((p) => p.classList.remove("active"));
+      document
+        .querySelectorAll(`#${targetId} .filter-pill.active`)
+        .forEach((p) => p.classList.remove("active"));
       updateTriggerState(targetId);
     });
   });
 
-  document.getElementById("clear-filters-btn")?.addEventListener("click", () => {
-    document.querySelectorAll(".filter-pill.active").forEach((p) => p.classList.remove("active"));
-    document.querySelectorAll(".filter-dropdown-btn").forEach((b) => b.classList.remove("filter-btn-active"));
-    const grid = document.getElementById("dex-grid");
-    if (grid) {
-      grid.innerHTML = "";
-      allLoadedPokemon.forEach((p) => grid.appendChild(buildDexCard(p)));
-    }
-  });
+  document
+    .getElementById("clear-filters-btn")
+    ?.addEventListener("click", () => {
+      document
+        .querySelectorAll(".filter-pill.active")
+        .forEach((p) => p.classList.remove("active"));
+      document
+        .querySelectorAll(".filter-dropdown-btn")
+        .forEach((b) => b.classList.remove("filter-btn-active"));
+      const grid = document.getElementById("dex-grid");
+      if (grid) {
+        grid.innerHTML = "";
+        allLoadedPokemon.forEach((p) => grid.appendChild(buildDexCard(p)));
+      }
+    });
 }
 
 ///--- Buscador
@@ -386,11 +520,14 @@ async function searchPokemon(query) {
       <div class="pokeball-spinner"><div class="pokeball-line"></div></div>
       <p class="loading-text">Searching...</p>
     </div>`;
-  const pokemons = (await Promise.all(matches.map((name) => fetchPokemonById(name)))).filter(Boolean);
+  const pokemons = (
+    await Promise.all(matches.map((name) => fetchPokemonById(name)))
+  ).filter(Boolean);
   pokemons.sort((a, b) => a.id - b.id);
   grid.innerHTML = "";
   if (pokemons.length === 0) {
-    grid.innerHTML = '<p class="text-gray-400 col-span-5 text-center py-8">No Pokémon found.</p>';
+    grid.innerHTML =
+      '<p class="text-gray-400 col-span-5 text-center py-8">No Pokémon found.</p>';
     return;
   }
   pokemons.forEach((p) => grid.appendChild(buildDexCard(p)));
@@ -399,13 +536,28 @@ async function searchPokemon(query) {
 ///--- Aplicación de Filtros DXG
 // Filtra usando POKEMON_DATA local (sin fetch adicional)
 async function applyFilters() {
-  const types = [...document.querySelectorAll("#filter-types .filter-pill.active")].map((p) => p.dataset.value);
-  const regions = [...document.querySelectorAll("#filter-regions .filter-pill.active")].map((p) => p.dataset.value);
-  const gens = [...document.querySelectorAll("#filter-gens .filter-pill.active")].map((p) => Number(p.dataset.value));
-  const evos = [...document.querySelectorAll("#filter-evos .filter-pill.active")].map((p) => Number(p.dataset.value));
-  const forms = [...document.querySelectorAll("#filter-forms .filter-pill.active")].map((p) => p.dataset.value);
+  const types = [
+    ...document.querySelectorAll("#filter-types .filter-pill.active"),
+  ].map((p) => p.dataset.value);
+  const regions = [
+    ...document.querySelectorAll("#filter-regions .filter-pill.active"),
+  ].map((p) => p.dataset.value);
+  const gens = [
+    ...document.querySelectorAll("#filter-gens .filter-pill.active"),
+  ].map((p) => Number(p.dataset.value));
+  const evos = [
+    ...document.querySelectorAll("#filter-evos .filter-pill.active"),
+  ].map((p) => Number(p.dataset.value));
+  const forms = [
+    ...document.querySelectorAll("#filter-forms .filter-pill.active"),
+  ].map((p) => p.dataset.value);
 
-  const noFilters = !types.length && !regions.length && !gens.length && !evos.length && !forms.length;
+  const noFilters =
+    !types.length &&
+    !regions.length &&
+    !gens.length &&
+    !evos.length &&
+    !forms.length;
   const grid = document.getElementById("dex-grid");
   grid.innerHTML = `
     <div class="loading-spinner">
@@ -419,25 +571,47 @@ async function applyFilters() {
     return;
   }
 
-  const genToRegion = { 1:"kanto",2:"johto",3:"hoenn",4:"sinnoh",5:"unova",6:"kalos",7:"alola",8:"galar",9:"paldea" };
+  const genToRegion = {
+    1: "kanto",
+    2: "johto",
+    3: "hoenn",
+    4: "sinnoh",
+    5: "unova",
+    6: "kalos",
+    7: "alola",
+    8: "galar",
+    9: "paldea",
+  };
 
   const filtered = POKEMON_DATA.filter((entry) => {
-    if (types.length && !types.some((t) => entry.types.includes(t))) return false;
-    if (regions.length && !regions.some((r) => entry.regions.includes(r))) return false;
-    if (gens.length && !gens.some((g) => genToRegion[g] === entry.region)) return false;
+    if (types.length && !types.some((t) => entry.types.includes(t)))
+      return false;
+    if (regions.length && !regions.some((r) => entry.regions.includes(r)))
+      return false;
+    if (gens.length && !gens.some((g) => genToRegion[g] === entry.region))
+      return false;
     if (evos.length && !evos.includes(entry.evoChainLength)) return false;
-    if (forms.length && !forms.some((f) =>
-      f === "R" ? (entry.forms.includes("R") || entry.isRegional) : entry.forms.includes(f)
-    )) return false;
+    if (
+      forms.length &&
+      !forms.some((f) =>
+        f === "R"
+          ? entry.forms.includes("R") || entry.isRegional
+          : entry.forms.includes(f),
+      )
+    )
+      return false;
     return true;
   });
 
   if (filtered.length === 0) {
-    grid.innerHTML = '<p class="text-gray-400 col-span-5 text-center py-8">No Pokémon found.</p>';
+    grid.innerHTML =
+      '<p class="text-gray-400 col-span-5 text-center py-8">No Pokémon found.</p>';
     return;
   }
 
-  const pokemons = (await fetchInBatches(filtered, (entry) => fetchPokemonById(entry.id), 20)).filter(Boolean);
+  const pokemons = (
+    await fetchInBatches(filtered, (entry) => fetchPokemonById(entry.id), 20)
+  ).filter(Boolean);
   pokemons.sort((a, b) => a.id - b.id);
   grid.innerHTML = "";
   pokemons.forEach((p) => grid.appendChild(buildDexCard(p)));
@@ -453,9 +627,15 @@ if (window.location.pathname.includes("details")) {
       const pokemon = await getPokemon(pokemonId);
 
       // Detectar si es forma regional (funciona)
-      const isRegional = REGIONAL_SUFFIX_LIST.some((s) => pokemon.name.endsWith(s));
-      const regionalSuffix = REGIONAL_SUFFIX_LIST.find((s) => pokemon.name.endsWith(s));
-      const speciesName = isRegional ? pokemon.name.replace(regionalSuffix, "") : pokemon.name;
+      const isRegional = REGIONAL_SUFFIX_LIST.some((s) =>
+        pokemon.name.endsWith(s),
+      );
+      const regionalSuffix = REGIONAL_SUFFIX_LIST.find((s) =>
+        pokemon.name.endsWith(s),
+      );
+      const speciesName = isRegional
+        ? pokemon.name.replace(regionalSuffix, "")
+        : pokemon.name;
       const species = await getPokemonSpecies(speciesName);
       const evoChain = await getEvolutionChain(species.evolution_chain.url);
 
@@ -464,8 +644,10 @@ if (window.location.pathname.includes("details")) {
         : pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
 
       ///--- Cabecera y Favorito
-      document.getElementById("detail-name").textContent = `#${String(pokemon.id).padStart(3, "0")} ${displayName}`;
-      document.getElementById("detail-genus").textContent = getEnglishGenus(species);
+      document.getElementById("detail-name").textContent =
+        `#${String(pokemon.id).padStart(3, "0")} ${displayName}`;
+      document.getElementById("detail-genus").textContent =
+        getEnglishGenus(species);
 
       const detailFavBtn = document.getElementById("detail-fav-btn");
       if (detailFavBtn) {
@@ -478,7 +660,8 @@ if (window.location.pathname.includes("details")) {
 
       ///--- Sprite Principal y Galería
       const mainSprite =
-        pokemon.sprites.other?.["official-artwork"]?.front_default || pokemon.sprites.front_default;
+        pokemon.sprites.other?.["official-artwork"]?.front_default ||
+        pokemon.sprites.front_default;
       document.getElementById("sprite-main").src = mainSprite;
 
       const sprites = [
@@ -486,12 +669,29 @@ if (window.location.pathname.includes("details")) {
         { src: pokemon.sprites.back_default, label: "Back" },
         { src: pokemon.sprites.front_shiny, label: "Shiny" },
         { src: pokemon.sprites.back_shiny, label: "Back Shiny" },
-        { src: pokemon.sprites.versions?.["generation-v"]?.["black-white"]?.animated?.front_default, label: "Animated" },
-        { src: pokemon.sprites.versions?.["generation-v"]?.["black-white"]?.animated?.back_default, label: "Animated Back" },
+        {
+          src: pokemon.sprites.versions?.["generation-v"]?.["black-white"]
+            ?.animated?.front_default,
+          label: "Animated",
+        },
+        {
+          src: pokemon.sprites.versions?.["generation-v"]?.["black-white"]
+            ?.animated?.back_default,
+          label: "Animated Back",
+        },
         { src: pokemon.sprites.other?.["home"]?.front_default, label: "Home" },
-        { src: pokemon.sprites.other?.["home"]?.front_shiny, label: "Home Shiny" },
-        { src: pokemon.sprites.other?.["official-artwork"]?.front_default, label: "Artwork" },
-        { src: pokemon.sprites.other?.["official-artwork"]?.front_shiny, label: "Artwork Shiny" },
+        {
+          src: pokemon.sprites.other?.["home"]?.front_shiny,
+          label: "Home Shiny",
+        },
+        {
+          src: pokemon.sprites.other?.["official-artwork"]?.front_default,
+          label: "Artwork",
+        },
+        {
+          src: pokemon.sprites.other?.["official-artwork"]?.front_shiny,
+          label: "Artwork Shiny",
+        },
       ].filter((s) => s.src);
 
       const gallery = document.getElementById("sprite-gallery");
@@ -499,8 +699,11 @@ if (window.location.pathname.includes("details")) {
         const img = document.createElement("img");
         img.src = s.src;
         img.alt = s.label;
-        img.className = "w-24 h-24 object-contain bg-gray-100 rounded-lg cursor-pointer hover:ring-2 hover:ring-red-400 transition";
-        img.addEventListener("click", () => { document.getElementById("sprite-main").src = s.src; });
+        img.className =
+          "w-24 h-24 object-contain bg-gray-100 rounded-lg cursor-pointer hover:ring-2 hover:ring-red-400 transition";
+        img.addEventListener("click", () => {
+          document.getElementById("sprite-main").src = s.src;
+        });
         gallery.appendChild(img);
       });
 
@@ -514,28 +717,67 @@ if (window.location.pathname.includes("details")) {
       });
 
       const genRaw = species.generation?.name ?? "";
-      const genMap = { "generation-i":"I","generation-ii":"II","generation-iii":"III","generation-iv":"IV","generation-v":"V","generation-vi":"VI","generation-vii":"VII","generation-viii":"VIII","generation-ix":"IX" };
-      const regionMap = { "generation-i":"Kanto","generation-ii":"Johto","generation-iii":"Hoenn","generation-iv":"Sinnoh","generation-v":"Unova","generation-vi":"Kalos","generation-vii":"Alola","generation-viii":"Galar","generation-ix":"Paldea" };
+      const genMap = {
+        "generation-i": "I",
+        "generation-ii": "II",
+        "generation-iii": "III",
+        "generation-iv": "IV",
+        "generation-v": "V",
+        "generation-vi": "VI",
+        "generation-vii": "VII",
+        "generation-viii": "VIII",
+        "generation-ix": "IX",
+      };
+      const regionMap = {
+        "generation-i": "Kanto",
+        "generation-ii": "Johto",
+        "generation-iii": "Hoenn",
+        "generation-iv": "Sinnoh",
+        "generation-v": "Unova",
+        "generation-vi": "Kalos",
+        "generation-vii": "Alola",
+        "generation-viii": "Galar",
+        "generation-ix": "Paldea",
+      };
       document.getElementById("detail-generation").innerHTML =
         `<span class="font-bold">Gen ${genMap[genRaw]}</span> <span class="text-gray-400">— ${regionMap[genRaw]}</span>`;
 
-      document.getElementById("detail-habitat").textContent = getHabitat(species);
-      document.getElementById("detail-flavor").textContent = getEnglishFlavorText(species);
-      document.getElementById("detail-height").textContent = `${(pokemon.height / 10).toFixed(1)} m`;
-      document.getElementById("detail-weight").textContent = `${(pokemon.weight / 10).toFixed(1)} kg`;
+      document.getElementById("detail-habitat").textContent =
+        getHabitat(species);
+      document.getElementById("detail-flavor").textContent =
+        getEnglishFlavorText(species);
+      document.getElementById("detail-height").textContent =
+        `${(pokemon.height / 10).toFixed(1)} m`;
+      document.getElementById("detail-weight").textContent =
+        `${(pokemon.weight / 10).toFixed(1)} kg`;
 
       ///--- Habilidades
       const abilitiesEl = document.getElementById("detail-abilities");
       pokemon.abilities.forEach((a) => {
         const span = document.createElement("span");
         span.className = "text-gray-700 text-sm capitalize";
-        span.textContent = a.ability.name.replace(/-/g, " ") + (a.is_hidden ? " (hidden)" : "");
+        span.textContent =
+          a.ability.name.replace(/-/g, " ") + (a.is_hidden ? " (hidden)" : "");
         abilitiesEl.appendChild(span);
       });
 
       ///--- Stats Base con Barras de Color
-      const statColors = { hp:"#ef4444",attack:"#f97316",defense:"#eab308","special-attack":"#3b82f6","special-defense":"#22c55e",speed:"#a855f7" };
-      const statLabels = { hp:"HP",attack:"ATK",defense:"DEF","special-attack":"SP.ATK","special-defense":"SP.DEF",speed:"SPD" };
+      const statColors = {
+        hp: "#ef4444",
+        attack: "#f97316",
+        defense: "#eab308",
+        "special-attack": "#3b82f6",
+        "special-defense": "#22c55e",
+        speed: "#a855f7",
+      };
+      const statLabels = {
+        hp: "HP",
+        attack: "ATK",
+        defense: "DEF",
+        "special-attack": "SP.ATK",
+        "special-defense": "SP.DEF",
+        speed: "SPD",
+      };
       const statsEl = document.getElementById("detail-stats");
       pokemon.stats.forEach((s) => {
         const name = s.stat.name;
@@ -560,7 +802,8 @@ if (window.location.pathname.includes("details")) {
         if (detail.min_level) return `Lvl ${detail.min_level}`;
         if (detail.item) return detail.item.name.replace(/-/g, " ");
         if (detail.held_item) return detail.held_item.name.replace(/-/g, " ");
-        if (detail.known_move) return `Know: ${detail.known_move.name.replace(/-/g, " ")}`;
+        if (detail.known_move)
+          return `Know: ${detail.known_move.name.replace(/-/g, " ")}`;
         if (detail.min_happiness) return `Happiness ${detail.min_happiness}`;
         if (detail.time_of_day) return detail.time_of_day;
         if (detail.trigger?.name) return detail.trigger.name.replace(/-/g, " ");
@@ -576,7 +819,9 @@ if (window.location.pathname.includes("details")) {
         `;
         if (!isCurrent) {
           node.style.cursor = "pointer";
-          node.addEventListener("click", () => { window.location.href = `details.html?id=${p.id}`; });
+          node.addEventListener("click", () => {
+            window.location.href = `details.html?id=${p.id}`;
+          });
         }
         return node;
       }
@@ -622,7 +867,9 @@ if (window.location.pathname.includes("details")) {
 
       async function getPokemonForEvo(basePokemonName) {
         if (isRegional) {
-          try { return await getPokemon(`${basePokemonName}${regionalSuffix}`); } catch (e) {}
+          try {
+            return await getPokemon(`${basePokemonName}${regionalSuffix}`);
+          } catch (e) {}
         }
         return await getPokemon(basePokemonName);
       }
@@ -639,19 +886,26 @@ if (window.location.pathname.includes("details")) {
           const step = linearPath[i];
           const isCurrent = step.name === evoLookupName;
           const p = isCurrent ? pokemon : await getPokemonForEvo(step.name);
-          if (i > 0) chainEl.appendChild(makeArrow(getEvoCondition(linearPath[i - 1].nextDetail)));
+          if (i > 0)
+            chainEl.appendChild(
+              makeArrow(getEvoCondition(linearPath[i - 1].nextDetail)),
+            );
           chainEl.appendChild(makeEvoNode(p, isCurrent));
         }
         if (children.length === 1) {
           const child = children[0];
           const nextP = await getPokemonForEvo(child.species.name);
-          chainEl.appendChild(makeArrow(getEvoCondition(child.evolution_details[0] ?? {})));
+          chainEl.appendChild(
+            makeArrow(getEvoCondition(child.evolution_details[0] ?? {})),
+          );
           chainEl.appendChild(makeEvoNode(nextP, false));
           const grandchildren = getChildren(evoChain, child.species.name);
           if (grandchildren.length === 1) {
             const grand = grandchildren[0];
             const grandP = await getPokemonForEvo(grand.species.name);
-            chainEl.appendChild(makeArrow(getEvoCondition(grand.evolution_details[0] ?? {})));
+            chainEl.appendChild(
+              makeArrow(getEvoCondition(grand.evolution_details[0] ?? {})),
+            );
             chainEl.appendChild(makeEvoNode(grandP, false));
           }
         } else if (children.length > 1) {
@@ -689,28 +943,54 @@ if (window.location.pathname.includes("details")) {
       if (altForms.length > 0) {
         document.getElementById("forms-section").style.display = "block";
         const formsGrid = document.getElementById("forms-grid");
-        const formStatColors = { hp:"#ef4444",attack:"#f97316",defense:"#eab308","special-attack":"#3b82f6","special-defense":"#22c55e",speed:"#a855f7" };
-        const formStatLabels = { hp:"HP",attack:"ATK",defense:"DEF","special-attack":"SP.ATK","special-defense":"SP.DEF",speed:"SPD" };
+        const formStatColors = {
+          hp: "#ef4444",
+          attack: "#f97316",
+          defense: "#eab308",
+          "special-attack": "#3b82f6",
+          "special-defense": "#22c55e",
+          speed: "#a855f7",
+        };
+        const formStatLabels = {
+          hp: "HP",
+          attack: "ATK",
+          defense: "DEF",
+          "special-attack": "SP.ATK",
+          "special-defense": "SP.DEF",
+          speed: "SPD",
+        };
 
         for (const formRef of altForms) {
           const formPokemon = formRef.data;
-          const formRes = await fetch(`${BASE_URL}/pokemon-form/${formRef.name}`);
+          const formRes = await fetch(
+            `${BASE_URL}/pokemon-form/${formRef.name}`,
+          );
           const formData = formRes.ok ? await formRes.json() : null;
           const isMega = formRef.name.includes("-mega");
           const tagLabel = isMega ? "Mega" : "Gigantamax";
           const tagClass = isMega ? "form-alt-tag-mega" : "form-alt-tag-gmax";
           const formDisplayName = formRef.name
-            .replace(/-mega-x$/, " Mega X").replace(/-mega-y$/, " Mega Y")
-            .replace(/-mega$/, " Mega").replace(/-gmax$/, " Gigantamax")
-            .split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+            .replace(/-mega-x$/, " Mega X")
+            .replace(/-mega-y$/, " Mega Y")
+            .replace(/-mega$/, " Mega")
+            .replace(/-gmax$/, " Gigantamax")
+            .split("-")
+            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+            .join(" ");
           const sprite =
             formPokemon.sprites.other?.["official-artwork"]?.front_default ||
-            formPokemon.sprites.front_default || formData?.sprites?.front_default || "";
+            formPokemon.sprites.front_default ||
+            formData?.sprites?.front_default ||
+            "";
           let itemDisplay = "";
           if (isMega) {
             itemDisplay = formRef.name
-              .replace(/-mega-x$/, "ite X").replace(/-mega-y$/, "ite Y").replace(/-mega$/, "ite")
-              .split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+              .replace(/-mega-x$/, "ite X")
+              .replace(/-mega-y$/, "ite Y")
+              .replace(/-mega$/, "ite")
+              .split("-")
+              .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+              .join(" ");
           }
           const types = formPokemon.types.map((t) => t.type.name);
           const card = document.createElement("div");
@@ -737,23 +1017,28 @@ if (window.location.pathname.includes("details")) {
           accordion.className = "form-alt-accordion";
           accordion.style.display = "none";
           const abilities = formPokemon.abilities
-            .map((a) => `<span class="form-alt-ability">${a.ability.name.replace(/-/g, " ")}${a.is_hidden ? " (hidden)" : ""}</span>`)
+            .map(
+              (a) =>
+                `<span class="form-alt-ability">${a.ability.name.replace(/-/g, " ")}${a.is_hidden ? " (hidden)" : ""}</span>`,
+            )
             .join("");
           accordion.innerHTML = `
             <p class="form-alt-acc-label">Ability</p>
             <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;">${abilities}</div>
             <p class="form-alt-acc-label">Base stats</p>
             <div class="form-alt-stats">
-              ${formPokemon.stats.map((s) => {
-                const n = s.stat.name;
-                const v = s.base_stat;
-                const pct = Math.min((v / 255) * 100, 100).toFixed(1);
-                return `<div class="form-alt-stat-row">
+              ${formPokemon.stats
+                .map((s) => {
+                  const n = s.stat.name;
+                  const v = s.base_stat;
+                  const pct = Math.min((v / 255) * 100, 100).toFixed(1);
+                  return `<div class="form-alt-stat-row">
                   <span class="form-alt-stat-name">${formStatLabels[n] ?? n}</span>
                   <span class="form-alt-stat-val">${v}</span>
                   <div class="form-alt-stat-bg"><div style="width:${pct}%;background:${formStatColors[n] ?? "#9ca3af"};" class="form-alt-stat-bar"></div></div>
                 </div>`;
-              }).join("")}
+                })
+                .join("")}
             </div>
           `;
           card.appendChild(accordion);
@@ -761,7 +1046,9 @@ if (window.location.pathname.includes("details")) {
           toggle.addEventListener("click", () => {
             open = !open;
             accordion.style.display = open ? "block" : "none";
-            toggle.querySelector(".form-alt-chevron").textContent = open ? "▴" : "▾";
+            toggle.querySelector(".form-alt-chevron").textContent = open
+              ? "▴"
+              : "▾";
             card.classList.toggle("form-alt-card-open", open);
           });
           formsGrid.appendChild(card);
@@ -772,23 +1059,28 @@ if (window.location.pathname.includes("details")) {
         const baseP = await getPokemon(speciesName);
         if (baseP) {
           document.getElementById("regional-section").style.display = "block";
-          document.getElementById("regional-grid").appendChild(buildDexCard(baseP));
+          document
+            .getElementById("regional-grid")
+            .appendChild(buildDexCard(baseP));
         }
       } else {
-        const regionalForms = (await Promise.all(
-          REGIONAL_SUFFIX_LIST.map(async (suffix) => {
-            const res = await fetch(`${BASE_URL}/pokemon/${pokemon.name}${suffix}`);
-            if (!res.ok) return null;
-            return res.json();
-          }),
-        )).filter(Boolean);
+        const regionalForms = (
+          await Promise.all(
+            REGIONAL_SUFFIX_LIST.map(async (suffix) => {
+              const res = await fetch(
+                `${BASE_URL}/pokemon/${pokemon.name}${suffix}`,
+              );
+              if (!res.ok) return null;
+              return res.json();
+            }),
+          )
+        ).filter(Boolean);
         if (regionalForms.length > 0) {
           document.getElementById("regional-section").style.display = "block";
           const grid = document.getElementById("regional-grid");
           regionalForms.forEach((p) => grid.appendChild(buildDexCard(p)));
         }
       }
-
     })();
   }
 }
@@ -797,8 +1089,27 @@ if (window.location.pathname.includes("details")) {
 document.addEventListener("DOMContentLoaded", () => {
   const carouselTrack = document.getElementById("carousel-track");
   if (carouselTrack) {
-    initCarousel();
-    setInterval(slideNext, 6000);
+    initCarousel().then(() => {
+      let autoSlide = setInterval(slideNext, 6000);
+
+      function resetAutoSlide() {
+        clearInterval(autoSlide);
+        autoSlide = setInterval(slideNext, 6000);
+      }
+
+      document
+        .getElementById("carousel-next")
+        ?.addEventListener("click", () => {
+          slideNext();
+          resetAutoSlide();
+        });
+      document
+        .getElementById("carousel-prev")
+        ?.addEventListener("click", () => {
+          slidePrev();
+          resetAutoSlide();
+        });
+    });
   }
 
   // DX
@@ -816,7 +1127,9 @@ document.addEventListener("DOMContentLoaded", () => {
     loadAllPokemonNames();
     (async () => {
       const ids = Array.from({ length: 15 }, (_, i) => i + 1);
-      const pokemons = (await Promise.all(ids.map(fetchPokemonById))).filter(Boolean);
+      const pokemons = (await Promise.all(ids.map(fetchPokemonById))).filter(
+        Boolean,
+      );
       allLoadedPokemon.push(...pokemons);
       pokemons.forEach((p) => idxGrid.appendChild(buildDexCard(p)));
     })();
@@ -829,20 +1142,35 @@ document.addEventListener("DOMContentLoaded", () => {
     let searchTimeout;
     searchInput.addEventListener("input", () => {
       clearTimeout(searchTimeout);
-      searchTimeout = setTimeout(() => searchPokemon(searchInput.value.trim()), 400);
+      searchTimeout = setTimeout(
+        () => searchPokemon(searchInput.value.trim()),
+        400,
+      );
     });
-    document.getElementById("clear-search-btn")?.addEventListener("click", () => {
-      searchInput.value = "";
-      searchPokemon("");
-    });
+    document
+      .getElementById("clear-search-btn")
+      ?.addEventListener("click", () => {
+        searchInput.value = "";
+        searchPokemon("");
+      });
   }
 
   // Botones Apply de filtros
-  document.getElementById("apply-filters-btn")?.addEventListener("click", applyFilters);
-  document.getElementById("apply-filters-btn-region")?.addEventListener("click", applyFilters);
-  document.getElementById("apply-filters-btn-gen")?.addEventListener("click", applyFilters);
-  document.getElementById("apply-filters-btn-evo")?.addEventListener("click", applyFilters);
-  document.getElementById("apply-filters-btn-forms")?.addEventListener("click", applyFilters);
+  document
+    .getElementById("apply-filters-btn")
+    ?.addEventListener("click", applyFilters);
+  document
+    .getElementById("apply-filters-btn-region")
+    ?.addEventListener("click", applyFilters);
+  document
+    .getElementById("apply-filters-btn-gen")
+    ?.addEventListener("click", applyFilters);
+  document
+    .getElementById("apply-filters-btn-evo")
+    ?.addEventListener("click", applyFilters);
+  document
+    .getElementById("apply-filters-btn-forms")
+    ?.addEventListener("click", applyFilters);
 
   // Back to top
   const backToTopBtn = document.getElementById("back-to-top");
@@ -851,11 +1179,13 @@ document.addEventListener("DOMContentLoaded", () => {
       backToTopBtn.classList.toggle("hidden", window.scrollY < 400);
       backToTopBtn.classList.toggle("flex", window.scrollY >= 400);
     });
-    backToTopBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    backToTopBtn.addEventListener("click", () =>
+      window.scrollTo({ top: 0, behavior: "smooth" }),
+    );
   }
 
   // Hamburger — index, DXG, details
-   if (!window.location.pathname.includes("favorites")) {
+  if (!window.location.pathname.includes("favorites")) {
     const hamburgerBtn = document.getElementById("hamburger-btn");
     if (hamburgerBtn) {
       hamburgerBtn.addEventListener("click", () => {
@@ -878,13 +1208,9 @@ if (window.location.pathname.includes("favorites")) {
       menu.addEventListener("click", (e) => e.stopPropagation());
     }
 
-    initFilters();
-
     const grid = document.getElementById("fav-grid");
     const emptyState = document.getElementById("fav-empty");
-    const searchInput = document.getElementById("fav-search");
     const clearAllBtn = document.getElementById("clear-all-favs-btn");
-    let favPokemons = [];
 
     async function loadFavorites() {
       const favIds = getFavorites();
@@ -901,61 +1227,23 @@ if (window.location.pathname.includes("favorites")) {
           <div class="pokeball-spinner"><div class="pokeball-line"></div></div>
           <p class="loading-text">Loading favorites...</p>
         </div>`;
-      const pokemons = (await Promise.all(favIds.map((id) => fetchPokemonById(id)))).filter(Boolean);
+      const pokemons = (
+        await Promise.all(favIds.map((id) => fetchPokemonById(id)))
+      ).filter(Boolean);
       pokemons.sort((a, b) => a.id - b.id);
-      favPokemons = pokemons;
-      renderGrid(favPokemons);
-    }
-
-    function renderGrid(pokemons) {
       grid.innerHTML = "";
-      if (pokemons.length === 0) {
-        grid.innerHTML = `<p class="text-gray-400 col-span-5 text-center py-8">No Pokémon found.</p>`;
-        return;
-      }
       pokemons.forEach((p) => {
         const card = buildDexCard(p);
-        card.querySelector(".fav-btn").addEventListener("click", () => setTimeout(loadFavorites, 100));
+        card
+          .querySelector(".fav-btn")
+          .addEventListener("click", () => setTimeout(loadFavorites, 100));
         grid.appendChild(card);
       });
     }
 
-    function applyFavFilters() {
-      const types = [...document.querySelectorAll("#filter-types .filter-pill.active")].map((p) => p.dataset.value);
-      const regions = [...document.querySelectorAll("#filter-regions .filter-pill.active")].map((p) => p.dataset.value);
-      const gens = [...document.querySelectorAll("#filter-gens .filter-pill.active")].map((p) => Number(p.dataset.value));
-      const q = searchInput.value.trim().toLowerCase();
-      const genToRegion = { 1:"kanto",2:"johto",3:"hoenn",4:"sinnoh",5:"unova",6:"kalos",7:"alola",8:"galar",9:"paldea" };
-      const filtered = favPokemons.filter((p) => {
-        const entry = typeof POKEMON_DATA !== "undefined" ? POKEMON_DATA.find((e) => e.id === p.id) : null;
-        if (q) {
-          const displayName = getRegionalDisplayName(p.name).toLowerCase();
-          if (!displayName.includes(q) && !p.name.includes(q)) return false;
-        }
-        if (types.length && entry && !types.some((t) => entry.types.includes(t))) return false;
-        if (regions.length && entry && !regions.some((r) => entry.regions.includes(r))) return false;
-        if (gens.length && entry && !gens.some((g) => genToRegion[g] === entry.region)) return false;
-        return true;
-      });
-      renderGrid(filtered);
-    }
-
-    searchInput.addEventListener("input", applyFavFilters);
-    document.getElementById("apply-filters-btn")?.addEventListener("click", applyFavFilters);
-    document.getElementById("apply-filters-btn-region")?.addEventListener("click", applyFavFilters);
-    document.getElementById("apply-filters-btn-gen")?.addEventListener("click", applyFavFilters);
-
-    document.getElementById("clear-filters-btn")?.addEventListener("click", () => {
-      document.querySelectorAll(".filter-pill.active").forEach((p) => p.classList.remove("active"));
-      document.querySelectorAll(".filter-dropdown-btn").forEach((b) => b.classList.remove("filter-btn-active"));
-      searchInput.value = "";
-      renderGrid(favPokemons);
-    });
-
     clearAllBtn.addEventListener("click", () => {
       if (!confirm("Remove all favorites?")) return;
       localStorage.removeItem("craf-favorites");
-      favPokemons = [];
       emptyState.classList.remove("hidden");
       emptyState.classList.add("flex");
       grid.innerHTML = "";

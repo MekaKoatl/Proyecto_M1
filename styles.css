@@ -2,6 +2,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
 /* ── CAROUSEL PRINCIPAL ───────────────────────────── */
+.carousel-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 2rem 0;
+}
+
 .carousel-wrapper {
   width: 100%;
   max-width: 1080px;
@@ -13,13 +22,12 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  transition: transform 0.5s ease;
   will-change: transform;
 }
 
 .carousel-card {
-  flex: 0 0 180px;
-  height: 180px;
+  flex: 0 0 150px;
+  height: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,10 +38,10 @@
   opacity: 0.2;
   transform: scale(0.8);
   transition:
-    opacity 0.5s ease,
-    transform 0.5s ease,
-    border 0.5s ease,
-    background-color 0.5s ease;
+    opacity 0.4s ease,
+    transform 0.4s ease,
+    border 0.4s ease,
+    background-color 0.4s ease;
 }
 
 .carousel-card.center {
@@ -45,8 +53,8 @@
 
 @media (min-width: 640px) {
   .carousel-card {
-    flex: 0 0 210px;
-    height: 210px;
+     flex: 0 0 170px;
+    height: 170px;
   }
 }
 
@@ -54,6 +62,7 @@
   width: 80px;
   height: 80px;
   object-fit: contain;
+  transition: width 0.4s ease, height 0.4s ease;
 }
 
 .carousel-card.center img {
@@ -66,16 +75,49 @@
   font-weight: 600;
   color: #374151;
   margin-top: 0.5rem;
+  text-align: center;
 }
 
-/* Carousel mobile*/
+.carousel-card.center span {
+  font-size: 0.85rem;
+}
+
+/* Flechas de navegación */
+.carousel-arrow {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  color: #374151;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  z-index: 10;
+  user-select: none;
+}
+
+.carousel-arrow:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #fff;
+}
+
+/* Carousel mobile */
 @media (max-width: 639px) {
+  .carousel-section {
+    gap: 0.25rem;
+  }
   .carousel-wrapper {
-    display: flex;
-    justify-content: center;
     overflow: visible;
     height: 220px;
+    display: flex;
     align-items: center;
+    justify-content: center;
   }
   .carousel-track {
     justify-content: center;
@@ -85,8 +127,13 @@
   }
   .carousel-card.center {
     display: flex;
-    flex: 0 0 200px;
-    height: 200px;
+    flex: 0 0 180px;
+    height: 180px;
+  }
+  .carousel-arrow {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
   }
 }
 
@@ -852,15 +899,5 @@
   transform: scale(1.2);
 }
 .fav-btn.fav-active {
-  color: #ef4444 !important;
-}
-
-@media (hover: none) {
-  .fav-btn:hover {
-    color: #d1d5db;
-    transform: none;
-  }
-  .fav-btn.fav-active:hover {
-    color: #ef4444;
-  }
+  color: #ef4444;
 }
