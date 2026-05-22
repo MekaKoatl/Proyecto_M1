@@ -119,7 +119,7 @@ function buildCard(pokemon, isCenter = false) {
     <img src="${isCenter ? animatedSprite : staticSprite}"
       data-static="${staticSprite}" data-animated="${animatedSprite}"
       alt="${pokemon.name}" />
-    <span>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</span>
+    <span>${getRegionalDisplayName(pokemon.name)}</span>
   `;
   card.style.cursor = "pointer";
   card.addEventListener("click", () => {
