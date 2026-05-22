@@ -321,10 +321,22 @@
   border-radius: 0.75rem;
   padding: 14px;
   min-width: 280px;
+  max-width: calc(100vw - 32px);
+  box-sizing: border-box;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 .filter-dropdown-panel.open {
   display: block;
+}
+
+@media (max-width: 639px) {
+  .filter-dropdown-panel {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    width: auto;
+    min-width: unset;
+  }
 }
 
 .filter-pill {
@@ -840,5 +852,15 @@
   transform: scale(1.2);
 }
 .fav-btn.fav-active {
-  color: #ef4444;
+  color: #ef4444 !important;
+}
+
+@media (hover: none) {
+  .fav-btn:hover {
+    color: #d1d5db;
+    transform: none;
+  }
+  .fav-btn.fav-active:hover {
+    color: #ef4444;
+  }
 }
