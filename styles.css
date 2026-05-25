@@ -305,6 +305,18 @@
   background: #fac775;
   color: #633806;
 }
+.form-badge-Legend {
+  background: #fde68a;
+  color: #92400e;
+}
+.form-badge-Mythic {
+  background: #e9d5ff;
+  color: #6b21a8;
+}
+.form-badge-Baby {
+  background: #fce7f3;
+  color: #9d174d;
+}
 
 /* ── HAMBURGER / MOBILE MENU ─────────────────────────── */
 #mobile-menu {
@@ -911,4 +923,53 @@
 }
 .fav-btn.fav-active {
   color: #ef4444;
+}
+
+/* ── BADGE GUIDE ─────────────────────────────────── */
+.badge-guide-wrapper {
+  position: relative;
+}
+
+.badge-guide-btn {
+  font-size: 0.75rem;
+  color: #6b7280;
+  background: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.badge-guide-btn:hover {
+  border-color: #9ca3af;
+  color: #374151;
+}
+
+.badge-guide-panel {
+  display: none;
+  margin-top: 8px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.badge-guide-panel.open {
+  display: block;
+}
+
+.badge-guide-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 12px;
+  align-items: center;
+}
+
+.badge-guide-desc {
+  font-size: 0.8rem;
+  color: #6b7280;
 }

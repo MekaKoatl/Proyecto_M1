@@ -1329,7 +1329,7 @@ const POKEMON_DATA = [
     region: "kanto",
     regions: ["kanto", "johto"],
     evoChainLength: 1,
-    forms: ["R"],
+    forms: ["R", "Legend"],
   },
   {
     id: 145,
@@ -1338,7 +1338,7 @@ const POKEMON_DATA = [
     region: "kanto",
     regions: ["kanto", "johto"],
     evoChainLength: 1,
-    forms: ["R"],
+    forms: ["R", "Legend"],
   },
   {
     id: 146,
@@ -1347,7 +1347,7 @@ const POKEMON_DATA = [
     region: "kanto",
     regions: ["kanto", "johto"],
     evoChainLength: 1,
-    forms: ["R"],
+    forms: ["R", "Legend"],
   },
   {
     id: 147,
@@ -1383,7 +1383,7 @@ const POKEMON_DATA = [
     region: "kanto",
     regions: ["kanto", "johto"],
     evoChainLength: 1,
-    forms: ["M"],
+    forms: ["M", "Legend"],
   },
   {
     id: 151,
@@ -1392,7 +1392,7 @@ const POKEMON_DATA = [
     region: "kanto",
     regions: ["kanto", "johto"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Mythic"],
   },
   {
     id: 152,
@@ -1581,7 +1581,7 @@ const POKEMON_DATA = [
     region: "johto",
     regions: ["johto", "hoenn", "sinnoh", "kalos", "alola", "galar", "paldea"],
     evoChainLength: 3,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 173,
@@ -1590,7 +1590,7 @@ const POKEMON_DATA = [
     region: "johto",
     regions: ["johto", "sinnoh", "alola", "galar"],
     evoChainLength: 3,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 174,
@@ -1599,7 +1599,7 @@ const POKEMON_DATA = [
     region: "johto",
     regions: ["johto", "hoenn", "alola", "paldea"],
     evoChainLength: 3,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 175,
@@ -1608,7 +1608,7 @@ const POKEMON_DATA = [
     region: "johto",
     regions: ["johto", "galar"],
     evoChainLength: 3,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 176,
@@ -2157,7 +2157,7 @@ const POKEMON_DATA = [
     region: "johto",
     regions: ["johto", "galar"],
     evoChainLength: 2,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 237,
@@ -2175,7 +2175,7 @@ const POKEMON_DATA = [
     region: "johto",
     regions: ["johto"],
     evoChainLength: 2,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 239,
@@ -2184,7 +2184,7 @@ const POKEMON_DATA = [
     region: "johto",
     regions: ["johto", "alola"],
     evoChainLength: 3,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 240,
@@ -2193,7 +2193,7 @@ const POKEMON_DATA = [
     region: "johto",
     regions: ["johto", "alola"],
     evoChainLength: 3,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 241,
@@ -2220,7 +2220,7 @@ const POKEMON_DATA = [
     region: "johto",
     regions: ["johto"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 244,
@@ -2229,7 +2229,7 @@ const POKEMON_DATA = [
     region: "johto",
     regions: ["johto"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 245,
@@ -2238,7 +2238,7 @@ const POKEMON_DATA = [
     region: "johto",
     regions: ["johto"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 246,
@@ -2274,7 +2274,7 @@ const POKEMON_DATA = [
     region: "johto",
     regions: ["johto"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 250,
@@ -2283,7 +2283,7 @@ const POKEMON_DATA = [
     region: "johto",
     regions: ["johto"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 251,
@@ -2292,7 +2292,7 @@ const POKEMON_DATA = [
     region: "johto",
     regions: ["johto"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Mythic"],
   },
   {
     id: 252,
@@ -2715,7 +2715,7 @@ const POKEMON_DATA = [
     region: "hoenn",
     regions: ["hoenn", "sinnoh", "kalos", "paldea"],
     evoChainLength: 3,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 299,
@@ -3273,7 +3273,7 @@ const POKEMON_DATA = [
     region: "hoenn",
     regions: ["hoenn", "galar"],
     evoChainLength: 2,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 361,
@@ -3426,7 +3426,7 @@ const POKEMON_DATA = [
     region: "hoenn",
     regions: ["hoenn"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 378,
@@ -3435,7 +3435,7 @@ const POKEMON_DATA = [
     region: "hoenn",
     regions: ["hoenn"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 379,
@@ -3444,7 +3444,7 @@ const POKEMON_DATA = [
     region: "hoenn",
     regions: ["hoenn"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 380,
@@ -3453,7 +3453,7 @@ const POKEMON_DATA = [
     region: "hoenn",
     regions: ["hoenn"],
     evoChainLength: 1,
-    forms: ["M"],
+    forms: ["M", "Legend"],
   },
   {
     id: 381,
@@ -3462,7 +3462,7 @@ const POKEMON_DATA = [
     region: "hoenn",
     regions: ["hoenn"],
     evoChainLength: 1,
-    forms: ["M"],
+    forms: ["M", "Legend"],
   },
   {
     id: 382,
@@ -3471,7 +3471,7 @@ const POKEMON_DATA = [
     region: "hoenn",
     regions: ["hoenn"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 383,
@@ -3480,7 +3480,7 @@ const POKEMON_DATA = [
     region: "hoenn",
     regions: ["hoenn"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 384,
@@ -3489,7 +3489,7 @@ const POKEMON_DATA = [
     region: "hoenn",
     regions: ["hoenn"],
     evoChainLength: 1,
-    forms: ["M"],
+    forms: ["M", "Legend"],
   },
   {
     id: 385,
@@ -3498,7 +3498,7 @@ const POKEMON_DATA = [
     region: "hoenn",
     regions: ["hoenn"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Mythic"],
   },
   {
     id: 387,
@@ -3678,7 +3678,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh", "kalos", "galar"],
     evoChainLength: 3,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 407,
@@ -3912,7 +3912,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh"],
     evoChainLength: 2,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 434,
@@ -3957,7 +3957,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh", "alola", "galar", "paldea"],
     evoChainLength: 2,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 439,
@@ -3966,7 +3966,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh", "galar"],
     evoChainLength: 3,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 440,
@@ -3975,7 +3975,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh", "alola", "paldea"],
     evoChainLength: 3,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 441,
@@ -4029,7 +4029,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh", "kalos", "alola", "galar"],
     evoChainLength: 2,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 447,
@@ -4038,7 +4038,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh", "kalos", "alola", "galar", "paldea"],
     evoChainLength: 2,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 448,
@@ -4137,7 +4137,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh", "galar"],
     evoChainLength: 2,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 459,
@@ -4335,7 +4335,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 481,
@@ -4344,7 +4344,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 482,
@@ -4353,7 +4353,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 483,
@@ -4362,7 +4362,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 484,
@@ -4371,7 +4371,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 485,
@@ -4380,7 +4380,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 486,
@@ -4389,7 +4389,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 488,
@@ -4398,7 +4398,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 489,
@@ -4407,7 +4407,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh"],
     evoChainLength: 2,
-    forms: [],
+    forms: ["Mythic"],
   },
   {
     id: 490,
@@ -4416,7 +4416,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh"],
     evoChainLength: 2,
-    forms: [],
+    forms: ["Mythic"],
   },
   {
     id: 491,
@@ -4425,7 +4425,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Mythic"],
   },
   {
     id: 493,
@@ -4434,7 +4434,7 @@ const POKEMON_DATA = [
     region: "sinnoh",
     regions: ["sinnoh"],
     evoChainLength: 1,
-    forms: ["B"],
+    forms: ["B", "Mythic"],
   },
   {
     id: 494,
@@ -4443,7 +4443,7 @@ const POKEMON_DATA = [
     region: "unova",
     regions: ["unova"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Mythic"],
   },
   {
     id: 495,
@@ -5703,7 +5703,7 @@ const POKEMON_DATA = [
     region: "unova",
     regions: ["unova"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 639,
@@ -5712,7 +5712,7 @@ const POKEMON_DATA = [
     region: "unova",
     regions: ["unova"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 640,
@@ -5721,7 +5721,7 @@ const POKEMON_DATA = [
     region: "unova",
     regions: ["unova"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 643,
@@ -5730,7 +5730,7 @@ const POKEMON_DATA = [
     region: "unova",
     regions: ["unova"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 644,
@@ -5739,7 +5739,7 @@ const POKEMON_DATA = [
     region: "unova",
     regions: ["unova"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 646,
@@ -5748,7 +5748,7 @@ const POKEMON_DATA = [
     region: "unova",
     regions: ["unova"],
     evoChainLength: 1,
-    forms: ["B"],
+    forms: ["B", "Legend"],
   },
   {
     id: 649,
@@ -5757,7 +5757,7 @@ const POKEMON_DATA = [
     region: "unova",
     regions: ["unova"],
     evoChainLength: 1,
-    forms: ["B"],
+    forms: ["B", "Mythic"],
   },
   {
     id: 650,
@@ -6315,7 +6315,7 @@ const POKEMON_DATA = [
     region: "kalos",
     regions: ["kalos"],
     evoChainLength: 1,
-    forms: ["B"],
+    forms: ["B", "Legend"],
   },
   {
     id: 717,
@@ -6324,7 +6324,7 @@ const POKEMON_DATA = [
     region: "kalos",
     regions: ["kalos"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 719,
@@ -6333,7 +6333,7 @@ const POKEMON_DATA = [
     region: "kalos",
     regions: ["kalos"],
     evoChainLength: 1,
-    forms: ["M"],
+    forms: ["M", "Mythic"],
   },
   {
     id: 720,
@@ -6342,7 +6342,7 @@ const POKEMON_DATA = [
     region: "kalos",
     regions: ["kalos"],
     evoChainLength: 1,
-    forms: ["B"],
+    forms: ["B", "Mythic"],
   },
   {
     id: 721,
@@ -6351,7 +6351,7 @@ const POKEMON_DATA = [
     region: "kalos",
     regions: ["kalos"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Mythic"],
   },
   {
     id: 722,
@@ -6783,7 +6783,7 @@ const POKEMON_DATA = [
     region: "alola",
     regions: ["alola", "galar"],
     evoChainLength: 2,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 773,
@@ -6792,7 +6792,7 @@ const POKEMON_DATA = [
     region: "alola",
     regions: ["alola", "galar"],
     evoChainLength: 2,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 775,
@@ -6882,7 +6882,7 @@ const POKEMON_DATA = [
     region: "alola",
     regions: ["alola"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 786,
@@ -6891,7 +6891,7 @@ const POKEMON_DATA = [
     region: "alola",
     regions: ["alola"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 787,
@@ -6900,7 +6900,7 @@ const POKEMON_DATA = [
     region: "alola",
     regions: ["alola"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 788,
@@ -6909,7 +6909,7 @@ const POKEMON_DATA = [
     region: "alola",
     regions: ["alola"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 789,
@@ -6918,7 +6918,7 @@ const POKEMON_DATA = [
     region: "alola",
     regions: ["alola"],
     evoChainLength: 3,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 790,
@@ -6927,7 +6927,7 @@ const POKEMON_DATA = [
     region: "alola",
     regions: ["alola"],
     evoChainLength: 3,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 791,
@@ -6936,7 +6936,7 @@ const POKEMON_DATA = [
     region: "alola",
     regions: ["alola"],
     evoChainLength: 3,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 792,
@@ -6945,7 +6945,7 @@ const POKEMON_DATA = [
     region: "alola",
     regions: ["alola"],
     evoChainLength: 3,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 793,
@@ -7017,7 +7017,7 @@ const POKEMON_DATA = [
     region: "alola",
     regions: ["alola"],
     evoChainLength: 1,
-    forms: ["B"],
+    forms: ["B", "Legend"],
   },
   {
     id: 801,
@@ -7026,7 +7026,7 @@ const POKEMON_DATA = [
     region: "alola",
     regions: ["alola"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Mythic"],
   },
   {
     id: 802,
@@ -7035,7 +7035,7 @@ const POKEMON_DATA = [
     region: "alola",
     regions: ["alola"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Mythic"],
   },
   {
     id: 803,
@@ -7080,7 +7080,7 @@ const POKEMON_DATA = [
     region: "alola",
     regions: ["alola"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Mythic"],
   },
   {
     id: 808,
@@ -7089,7 +7089,7 @@ const POKEMON_DATA = [
     region: "alola",
     regions: ["alola"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Mythic"],
   },
   {
     id: 809,
@@ -7098,7 +7098,7 @@ const POKEMON_DATA = [
     region: "alola",
     regions: ["alola"],
     evoChainLength: 1,
-    forms: ["G"],
+    forms: ["G", "Mythic"],
   },
   {
     id: 810,
@@ -7449,7 +7449,7 @@ const POKEMON_DATA = [
     region: "galar",
     regions: ["galar", "paldea"],
     evoChainLength: 2,
-    forms: [],
+    forms: ["Baby"],
   },
   {
     id: 850,
@@ -7773,7 +7773,7 @@ const POKEMON_DATA = [
     region: "galar",
     regions: ["galar"],
     evoChainLength: 1,
-    forms: ["B"],
+    forms: ["B", "Legend"],
   },
   {
     id: 889,
@@ -7782,7 +7782,7 @@ const POKEMON_DATA = [
     region: "galar",
     regions: ["galar"],
     evoChainLength: 1,
-    forms: ["B"],
+    forms: ["B", "Legend"],
   },
   {
     id: 890,
@@ -7791,7 +7791,7 @@ const POKEMON_DATA = [
     region: "galar",
     regions: ["galar"],
     evoChainLength: 1,
-    forms: ["B"],
+    forms: ["B", "Legend"],
   },
   {
     id: 891,
@@ -7800,7 +7800,7 @@ const POKEMON_DATA = [
     region: "galar",
     regions: ["galar"],
     evoChainLength: 2,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 893,
@@ -7809,7 +7809,7 @@ const POKEMON_DATA = [
     region: "galar",
     regions: ["galar"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Mythic"],
   },
   {
     id: 894,
@@ -7818,7 +7818,7 @@ const POKEMON_DATA = [
     region: "galar",
     regions: ["galar"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 895,
@@ -7827,7 +7827,7 @@ const POKEMON_DATA = [
     region: "galar",
     regions: ["galar"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 896,
@@ -7836,7 +7836,7 @@ const POKEMON_DATA = [
     region: "galar",
     regions: ["galar"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 897,
@@ -7845,7 +7845,7 @@ const POKEMON_DATA = [
     region: "galar",
     regions: ["galar"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 898,
@@ -7854,7 +7854,7 @@ const POKEMON_DATA = [
     region: "galar",
     regions: ["galar"],
     evoChainLength: 1,
-    forms: ["B"],
+    forms: ["B", "Legend"],
   },
   {
     id: 899,
@@ -8709,7 +8709,7 @@ const POKEMON_DATA = [
     region: "paldea",
     regions: ["paldea"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 1002,
@@ -8718,7 +8718,7 @@ const POKEMON_DATA = [
     region: "paldea",
     regions: ["paldea"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 1003,
@@ -8727,7 +8727,7 @@ const POKEMON_DATA = [
     region: "paldea",
     regions: ["paldea"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 1004,
@@ -8736,7 +8736,7 @@ const POKEMON_DATA = [
     region: "paldea",
     regions: ["paldea"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 1005,
@@ -8763,7 +8763,7 @@ const POKEMON_DATA = [
     region: "paldea",
     regions: ["paldea"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 1008,
@@ -8772,7 +8772,7 @@ const POKEMON_DATA = [
     region: "paldea",
     regions: ["paldea"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 1009,
@@ -8826,7 +8826,7 @@ const POKEMON_DATA = [
     region: "paldea",
     regions: ["paldea"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 1015,
@@ -8835,7 +8835,7 @@ const POKEMON_DATA = [
     region: "paldea",
     regions: ["paldea"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 1016,
@@ -8844,7 +8844,7 @@ const POKEMON_DATA = [
     region: "paldea",
     regions: ["paldea"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 1017,
@@ -8853,7 +8853,7 @@ const POKEMON_DATA = [
     region: "paldea",
     regions: ["paldea"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 1018,
@@ -8916,7 +8916,7 @@ const POKEMON_DATA = [
     region: "paldea",
     regions: ["paldea"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Legend"],
   },
   {
     id: 1025,
@@ -8925,7 +8925,7 @@ const POKEMON_DATA = [
     region: "paldea",
     regions: ["paldea"],
     evoChainLength: 1,
-    forms: [],
+    forms: ["Mythic"],
   },
   {
     id: 10091,

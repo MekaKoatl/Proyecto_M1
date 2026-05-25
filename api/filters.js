@@ -46,10 +46,13 @@ export function initFilters() {
     { val: 3, label: "3 in chain" },
   ];
   const formTypes = [
-    { val: "M", label: "Mega" },
-    { val: "G", label: "Gigantamax" },
-    { val: "R", label: "Regional" },
-  ];
+  { val: "M", label: "Mega" },
+  { val: "G", label: "Gigantamax" },
+  { val: "R", label: "Regional" },
+  { val: "Legend", label: "Legendary" },
+  { val: "Mythic", label: "Mythical" },
+  { val: "Baby", label: "Baby" },
+];
 
   function makePills(containerId, items, labelFn, valueFn, isType) {
     const container = document.getElementById(containerId);
