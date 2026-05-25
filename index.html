@@ -16,10 +16,11 @@
   />
 
   <body class="bg-white-900 text-white min-h-screen">
-
     <!--- Navbar -->
     <nav class="bg-red-600 shadow-lg">
-      <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div
+        class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between"
+      >
         <a href="index.html">
           <div class="flex items-center gap-3">
             <img
@@ -27,23 +28,60 @@
               alt="Pokeball"
               class="w-8 h-8"
             />
-            <h1 class="text-lg sm:text-2xl font-bold tracking-wide whitespace-nowrap">
+            <h1
+              class="text-lg sm:text-2xl font-bold tracking-wide whitespace-nowrap"
+            >
               CRAF Pokédex - Project
             </h1>
           </div>
         </a>
-        <ul id="nav-links" class="flex items-center gap-1 sm:gap-4 text-sm sm:text-base font-semibold">
-          <li><a href="index.html" class="px-3 py-1 rounded hover:bg-red-700 transition">Home</a></li>
-          <li><a href="DXG.html" class="px-3 py-1 rounded hover:bg-red-700 transition">General Dex Gallery</a></li>
-          <li><a href="favorites.html" class="px-3 py-1 rounded hover:bg-red-700 transition">Favorites</a></li>
+        <ul
+          id="nav-links"
+          class="flex items-center gap-1 sm:gap-4 text-sm sm:text-base font-semibold"
+        >
+          <li>
+            <a
+              href="index.html"
+              class="px-3 py-1 rounded hover:bg-red-700 transition"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="DXG.html"
+              class="px-3 py-1 rounded hover:bg-red-700 transition"
+              >General Dex Gallery</a
+            >
+          </li>
+          <li>
+            <a
+              href="favorites.html"
+              class="px-3 py-1 rounded hover:bg-red-700 transition"
+              >Favorites</a
+            >
+          </li>
         </ul>
-        <button id="hamburger-btn" class="text-white text-2xl font-bold px-2">☰</button>
+        <button id="hamburger-btn" class="text-white text-2xl font-bold px-2">
+          ☰
+        </button>
       </div>
       <!--- Mobile Menu -->
       <div id="mobile-menu">
-        <a href="index.html" class="text-white font-semibold hover:bg-red-700 px-3 py-2 rounded transition">Home</a>
-        <a href="DXG.html" class="text-white font-semibold hover:bg-red-700 px-3 py-2 rounded transition">General Dex Gallery</a>
-        <a href="favorites.html" class="text-white font-semibold hover:bg-red-700 px-3 py-2 rounded transition">Favorites</a>
+        <a
+          href="index.html"
+          class="text-white font-semibold hover:bg-red-700 px-3 py-2 rounded transition"
+          >Home</a
+        >
+        <a
+          href="DXG.html"
+          class="text-white font-semibold hover:bg-red-700 px-3 py-2 rounded transition"
+          >General Dex Gallery</a
+        >
+        <a
+          href="favorites.html"
+          class="text-white font-semibold hover:bg-red-700 px-3 py-2 rounded transition"
+          >Favorites</a
+        >
       </div>
     </nav>
 
@@ -65,42 +103,80 @@
       <!--- Filtros -->
       <div class="filter-bar">
         <div class="filter-dropdown-wrapper">
-          <button id="btn-filter-type" class="filter-dropdown-btn" data-target="panel-filter-type">Type ▾</button>
+          <button
+            id="btn-filter-type"
+            class="filter-dropdown-btn"
+            data-target="panel-filter-type"
+          >
+            Type ▾
+          </button>
           <div class="filter-dropdown-panel" id="panel-filter-type">
             <div class="panel-label">Type</div>
             <div class="panel-pills-row" id="filter-types"></div>
             <div class="panel-footer">
-              <button class="panel-apply-btn" id="apply-filters-btn">Apply</button>
-              <span class="panel-clear-link panel-clear-btn" data-target="filter-types">Clear</span>
+              <button class="panel-apply-btn" id="apply-filters-btn">
+                Apply
+              </button>
+              <span
+                class="panel-clear-link panel-clear-btn"
+                data-target="filter-types"
+                >Clear</span
+              >
             </div>
           </div>
         </div>
 
         <div class="filter-dropdown-wrapper">
-          <button id="btn-filter-region" class="filter-dropdown-btn" data-target="panel-filter-region">Region ▾</button>
+          <button
+            id="btn-filter-region"
+            class="filter-dropdown-btn"
+            data-target="panel-filter-region"
+          >
+            Region ▾
+          </button>
           <div class="filter-dropdown-panel" id="panel-filter-region">
             <div class="panel-label">Region</div>
             <div class="panel-pills-row" id="filter-regions"></div>
             <div class="panel-footer">
-              <button class="panel-apply-btn" id="apply-filters-btn-region">Apply</button>
-              <span class="panel-clear-link panel-clear-btn" data-target="filter-regions">Clear</span>
+              <button class="panel-apply-btn" id="apply-filters-btn-region">
+                Apply
+              </button>
+              <span
+                class="panel-clear-link panel-clear-btn"
+                data-target="filter-regions"
+                >Clear</span
+              >
             </div>
           </div>
         </div>
 
         <div class="filter-dropdown-wrapper">
-          <button id="btn-filter-gen" class="filter-dropdown-btn" data-target="panel-filter-gen">Generation ▾</button>
+          <button
+            id="btn-filter-gen"
+            class="filter-dropdown-btn"
+            data-target="panel-filter-gen"
+          >
+            Generation ▾
+          </button>
           <div class="filter-dropdown-panel" id="panel-filter-gen">
             <div class="panel-label">Generation</div>
             <div class="panel-pills-row" id="filter-gens"></div>
             <div class="panel-footer">
-              <button class="panel-apply-btn" id="apply-filters-btn-gen">Apply</button>
-              <span class="panel-clear-link panel-clear-btn" data-target="filter-gens">Clear</span>
+              <button class="panel-apply-btn" id="apply-filters-btn-gen">
+                Apply
+              </button>
+              <span
+                class="panel-clear-link panel-clear-btn"
+                data-target="filter-gens"
+                >Clear</span
+              >
             </div>
           </div>
         </div>
 
-        <button id="clear-filters-btn" class="filter-dropdown-btn">Clear all</button>
+        <button id="clear-filters-btn" class="filter-dropdown-btn">
+          Clear all
+        </button>
       </div>
 
       <!--- Buscador por nombre -->
@@ -112,16 +188,21 @@
       />
 
       <!--- Grid de Pokemon -->
-      <div id="dex-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+      <div
+        id="dex-grid"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
+      ></div>
     </section>
 
     <!--- Back to top button -->
     <button
       id="back-to-top"
       class="fixed bottom-6 right-6 z-50 w-10 h-10 bg-red-600 text-white rounded-full shadow-lg items-center justify-center text-xl hover:bg-red-700 transition hidden"
-    >↑</button>
+    >
+      ↑
+    </button>
 
     <script src="pokemon-data.js"></script>
-    <script src="scripts.js"></script>
+    <script type="module" src="main.js"></script>
   </body>
 </html>
