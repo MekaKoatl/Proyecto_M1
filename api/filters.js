@@ -102,14 +102,18 @@ export function initFilters() {
     });
   });
 
-  // Cierra dropdowns al click fuera, respeta hamburger y mobile-menu
-  document.addEventListener("click", (e) => {
+  // Cierra dropdowns al click/touch fuera, respeta hamburger y mobile-menu
+  function closeDropdowns(e) {
     if (e.target.closest("#hamburger-btn") || e.target.closest("#mobile-menu")) return;
+    if (e.target.closest(".filter-dropdown-wrapper")) return;
     document.querySelectorAll(".filter-dropdown-panel").forEach((p) => p.classList.remove("open"));
-  });
+  }
+  document.addEventListener("click", closeDropdowns);
+  document.addEventListener("touchstart", closeDropdowns, { passive: true });
 
   document.querySelectorAll(".filter-dropdown-panel").forEach((p) => {
     p.addEventListener("click", (e) => e.stopPropagation());
+    p.addEventListener("touchstart", (e) => e.stopPropagation(), { passive: true });
   });
 
   document.querySelectorAll(".panel-clear-btn").forEach((btn) => {

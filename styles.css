@@ -402,10 +402,14 @@
 @media (max-width: 639px) {
   .filter-dropdown-panel {
     position: fixed;
+    top: 120px;
     left: 16px;
     right: 16px;
     width: auto;
     min-width: unset;
+    max-height: 60vh;
+    overflow-y: auto;
+    z-index: 999;
   }
 }
 
